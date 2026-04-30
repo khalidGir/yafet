@@ -1,11 +1,36 @@
-'use client';
-
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { ArrowRight, Star } from "lucide-react";
+import { ArrowRight, Star, Loader2 } from "lucide-react";
+import { supabase } from "@/lib/supabase";
+import { useEffect, useState } from "react";
+
+interface Product {
+  id: string;
+  name: string;
+  price: string;
+  description: string;
+  image_url: string;
+}
 
 export default function Home() {
+  const [products, setProducts] = useState<Product[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function getProducts() {
+      const { data } = await supabase
+        .from('products')
+        .select('*')
+        .limit(3)
+        .order('created_at', { ascending: false });
+      
+      if (data) setProducts(data);
+      setLoading(false);
+    }
+    getProducts();
+  }, []);
+
   return (
     <div className="min-h-screen bg-[#faf9f6]">
       {/* Navigation Overlay */}
@@ -60,7 +85,7 @@ export default function Home() {
             </p>
             <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
               <Link 
-                href="/catalog/royal-silk-bedding" 
+                href="/catalog" 
                 className="group relative bg-white text-black px-12 py-5 font-bold tracking-[0.2em] uppercase overflow-hidden transition-all hover:pr-16"
               >
                 <span className="relative z-10">Discover Collection</span>
@@ -100,8 +125,8 @@ export default function Home() {
               Our signature silk collection isn't just bedding; it's a dermatological investment. 
               Natural proteins preserve skin hydration and prevent hair breakage while you rest.
             </p>
-            <Link href="/catalog/royal-silk-bedding" className="inline-flex items-center gap-4 text-xs tracking-[0.3em] uppercase font-bold hover:text-luxury-gold transition-colors">
-              Read Specifications <ArrowRight size={16}/>
+            <Link href="/catalog" className="inline-flex items-center gap-4 text-xs tracking-[0.3em] uppercase font-bold hover:text-luxury-gold transition-colors">
+              Browse All <ArrowRight size={16}/>
             </Link>
           </motion.div>
           <motion.div 
@@ -121,46 +146,45 @@ export default function Home() {
 
         {/* Featured Showcase */}
         <div className="text-center mb-24">
-           <h2 className="text-xs tracking-[0.6em] uppercase text-gray-400 mb-4">Seasonal Curations</h2>
+           <h2 className="text-xs tracking-[0.6em] uppercase text-gray-400 mb-4">Latest Arrivals</h2>
            <div className="w-20 h-[1px] bg-luxury-gold mx-auto"></div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-          {[
-            { name: "Egyptian Cotton", slug: "egyptian-cotton", price: "Starting 3,800 ETB", img: "https://images.unsplash.com/photo-1584132967334-10e028bd69f7?auto=format&fit=crop&q=80&w=800" },
-            { name: "Royal Silk", slug: "royal-silk-bedding", price: "Starting 4,500 ETB", img: "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&q=80&w=800" },
-            { name: "Velvet Nights", slug: "velvet-comfort", price: "Starting 4,200 ETB", img: "https://images.unsplash.com/photo-1505693333238-bc63a560dd37?auto=format&fit=crop&q=80&w=800" },
-          ].map((item, index) => (
-            <motion.div
-              key={item.slug}
-              whileInView={{ opacity: 1, y: 0 }}
-              initial={{ opacity: 0, y: 40 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.2 }}
-            >
-              <Link href={`/catalog/${item.slug}`} className="group block">
-                <div className="aspect-[3/4] relative overflow-hidden mb-6 bg-gray-100">
-                  <Image 
-                    src={item.img} 
-                    alt={item.name} 
-                    fill 
-                    className="object-cover transition-transform duration-1000 group-hover:scale-110"
-                  />
-                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors" />
-                </div>
-                <div className="flex justify-between items-start">
-                  <div>
-                    <h3 className="font-serif text-2xl mb-1">{item.name}</h3>
-                    <p className="text-[10px] tracking-[0.2em] uppercase text-gray-400">{item.price}</p>
+        {loading ? (
+          <div className="flex justify-center py-20"><Loader2 className="animate-spin text-gray-200" size={40} /></div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+            {products.map((item, index) => (
+              <motion.div
+                key={item.id}
+                whileInView={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0, y: 40 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.2 }}
+              >
+                <Link href={`/catalog/${item.id}`} className="group block">
+                  <div className="aspect-[3/4] relative overflow-hidden mb-6 bg-gray-100">
+                    <img 
+                      src={item.image_url} 
+                      alt={item.name} 
+                      className="object-cover w-full h-full transition-transform duration-1000 group-hover:scale-110"
+                    />
+                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors" />
                   </div>
-                  <div className="p-2 border border-gray-100 rounded-full group-hover:border-luxury-gold group-hover:text-luxury-gold transition-colors">
-                    <ArrowRight size={14}/>
+                  <div className="flex justify-between items-start">
+                    <div>
+                      <h3 className="font-serif text-2xl mb-1">{item.name}</h3>
+                      <p className="text-[10px] tracking-[0.2em] uppercase text-gray-400">{item.price}</p>
+                    </div>
+                    <div className="p-2 border border-gray-100 rounded-full group-hover:border-luxury-gold group-hover:text-luxury-gold transition-colors">
+                      <ArrowRight size={14}/>
+                    </div>
                   </div>
-                </div>
-              </Link>
-            </motion.div>
-          ))}
-        </div>
+                </Link>
+              </motion.div>
+            ))}
+          </div>
+        )}
       </section>
 
       {/* Testimonial Section */}
