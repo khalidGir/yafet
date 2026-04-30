@@ -59,13 +59,13 @@ const ProductPage = () => {
       {/* Editorial Header */}
       <nav className="p-8 flex justify-between items-center max-w-[1400px] mx-auto">
           <div className="flex items-center gap-2 text-[10px] uppercase tracking-[0.3em] font-bold text-gray-400">
-              <a href="/" className="hover:text-black transition-colors">Home</a>
+              <Link href="/" className="hover:text-black transition-colors">Home</Link>
               <ChevronRight size={10} />
-              <a href="/catalog" className="hover:text-black transition-colors">Catalog</a>
+              <Link href="/catalog" className="hover:text-black transition-colors">Catalog</Link>
               <ChevronRight size={10} />
               <span className="text-black">{product.name}</span>
           </div>
-          <div className="font-serif text-xl tracking-widest">YAFET</div>
+          <Link href="/" className="font-serif text-xl tracking-widest hover:text-luxury-gold transition-colors">YAFET</Link>
       </nav>
 
       <main className="max-w-[1400px] mx-auto px-8 py-12">

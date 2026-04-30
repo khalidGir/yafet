@@ -52,7 +52,15 @@ export default function CatalogPage() {
   return (
     <div className="min-h-screen bg-[#faf9f6] selection:bg-luxury-gold selection:text-white">
       {/* Editorial Header */}
-      <header className="pt-20 pb-12 px-8 max-w-[1400px] mx-auto text-center">
+      <nav className="p-8 flex justify-between items-center max-w-[1400px] mx-auto absolute top-0 w-full z-10">
+          <Link href="/" className="font-serif text-xl tracking-widest text-black hover:text-luxury-gold transition-colors">YAFET</Link>
+          <div className="flex gap-8 text-[10px] uppercase tracking-[0.3em] font-bold text-gray-500">
+              <Link href="/about" className="hover:text-black transition-colors">Heritage</Link>
+              <Link href="/contact" className="hover:text-black transition-colors">Contact</Link>
+          </div>
+      </nav>
+
+      <header className="pt-32 pb-12 px-8 max-w-[1400px] mx-auto text-center">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
