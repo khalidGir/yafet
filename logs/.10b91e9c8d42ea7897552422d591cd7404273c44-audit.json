@@ -1,0 +1,25 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 14
+    },
+    "auditLog": "C:\\Users\\hp\\ALL_PROJECTS\\Yafet\\logs\\.10b91e9c8d42ea7897552422d591cd7404273c44-audit.json",
+    "files": [
+        {
+            "date": 1778443587381,
+            "name": "C:\\Users\\hp\\ALL_PROJECTS\\Yafet\\logs\\mcp-puppeteer-2026-05-10.log",
+            "hash": "7eb2c48e00427cba286ec34c89bc886746c1cd8c88ee787cb1ec62a4d79dcb61"
+        },
+        {
+            "date": 1778447874395,
+            "name": "C:\\Users\\hp\\ALL_PROJECTS\\Yafet\\logs\\mcp-puppeteer-2026-05-11.log",
+            "hash": "2055521e51b8705d37ee92429da4f5f5b9a567825d81cd69defea33a62d3a1f9"
+        },
+        {
+            "date": 1778572631513,
+            "name": "C:\\Users\\hp\\ALL_PROJECTS\\Yafet\\logs\\mcp-puppeteer-2026-05-12.log",
+            "hash": "ab7022bab6e5e67b4dd317887c99bd10eea0a033809a42e6f0362d39ba0ee06b"
+        }
+    ],
+    "hashType": "sha256"
+}

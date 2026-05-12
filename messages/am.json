@@ -1,0 +1,118 @@
+{
+  "common": {
+    "home": "ቤት",
+    "catalog": "ካታሎግ",
+    "about": "ስለ እኛ",
+    "contact": "ያግኙን",
+    "aboutUs": "ስለ እኛ",
+    "heritage": "ቅርስ",
+    "shipping": "ማጓጓዝ"
+  },
+  "nav": {
+    "catalog": "ካታሎግ",
+    "heritage": "ቅርስ",
+    "contact": "ያግኙን"
+  },
+  "home": {
+    "tagline": "በስነምር የተሰበሰበ • የዓለም ርዕሰ ጉዳይ",
+    "title": "የሚያማምር",
+    "titleItalic": "እንቅልፍ",
+    "subtitle": "ለሚፈልጉት የኢትዮጵያ ቤቶች የተዘጋጁ የላቀ የአልጋ ልብሶች። የተረጋገጠ ጥራት፣ በንኽክት የሚታሰብ።",
+    "discoverBtn": "ስብስብ ይመልከቱ",
+    "viewCatalogBtn": "ካታሎግ ይመልከቱ",
+    "section1Label": "01 — ደረጃ",
+    "section1Title": "600 ጥቅል ሙሉርሪ ሱሪ",
+    "section1Desc": "የእኛ ፊርማ ሱሪ ስብስብ አልጋ ልብስ ብቻ ሳይሆን የቆዳ ኢንቨስትማንት ነው። ተፈጥሯዊ ፕሮቲን ቆዳን ለስላሳነት ለማስቀረት እና ፀጉር ሊሰብሩ እንዳይጀምር ይረዳል።",
+    "browseAll": "ሁሉንም ይመልከቱ",
+    "latestArrivals": "አዲስ ምጥጥን",
+    "quickView": "ፈጣን ዕይታ",
+    "viewAll": "ሁሉንም ስብስቦች ይመልከቱ",
+    "noProducts": "በዚህ ምድብ nothing found."
+  },
+  "testimonial": {
+    "quote": "የሮያል ሱሪ ስብስብ ጥራት የእንቅልፍ ንጽህናን ሙሉ በሙሉ ለወጠ። ወደ ሌላ መሄድ ማሰብ አስቸጋሪ ነው።",
+    "author": "ዶ/ር ሰለማዊት ቲ።",
+    "location": "አዲስ አበባ"
+  },
+  "footer": {
+    "tagline": "ከዓለም ዙሪያ ምርጥ ፍትሃዊነት እናምር እንደ አማራጭ ሳይሆን የህይወት ደረጃ ለኢትዮጵያ እንሰጣለን።",
+    "explore": "ያስሱ",
+    "connect": "ይ connect",
+    "catalog": "ካታሎግ",
+    "ourStory": "ታሪኳችን",
+    "shipping": "ማጓጓዝ",
+    "callSupport": "ይደውሉ",
+    "whatsapp": "ዋትሳፕ",
+    "email": "ኢሜይል",
+    "copyright": "© 2026 Yafet Premium. መብቱ የተጠበቀ ነው።"
+  },
+  "catalog": {
+    "headerLabel": "ሙሉ ስብስብ",
+    "title": "የተዘጋጁ",
+    "titleItalic": "ማስፈሪያዎች",
+    "categories": {
+      "all": "ሁሉም",
+      "luxuryCollection": "ርዕሰ ጉዳይ ስብስብ",
+      "egyptianCotton": "የግብፅ አበባ",
+      "pureSilk": "ንፁህ ሱሪ",
+      "velvet": "ቨልቬት"
+    },
+    "showing": "ማሳየት",
+    "listings": "ምጥጥን",
+    "refineSelection": "ምርጫን ማስተካከል",
+    "loading": "ስብስብ ማስተካከል...",
+    "viewAll": "ሁሉንም ስብስቦች ይመልከቱ"
+  },
+  "product": {
+    "verified": "የተረጋገጠ",
+    "negotiable": "ሊደራደር ይችላል",
+    "textileIntegrity": "የቁም ጥራት",
+    "textileIntegrityDesc": "ላቀ አምርቲያሎች፣ የተረጋገጠ ጥራት",
+    "whiteGloveDelivery": "ትኩረት ማጓጓዝ",
+    "whiteGloveDeliveryDesc": "ጥንቃቄ የተሞላው ማጓጓዝ",
+    "yafetGuarantee": "የYafet ማረጋገጫ",
+    "yafetGuaranteeDesc": "100% የሚረካ ማረጋገጫ",
+    "inquireOrder": "ይወስኑ እና ይላኩ",
+    "signatureCollection": "ፊርማ ስብስብ"
+  },
+  "about": {
+    "heroLabel": "ቅርሳችን",
+    "heroTitle": "ፍፁም እንቅልፍን ማዘጋጀት",
+    "storyTitle": "የሽልማት ታሪክ",
+    "storyText": "Yafet ከቀላል እምነት የተወለደ፡ እያንዳንዱ የኢትዮጵያ ቤት የዓለምን ደረጃ ያለው አልጋ ልብስ ሊያገኝ ይገባል። በአዲስ አበባ የተመሰረተ፣ ከዓለም ዙሪያ ምርጥ ቁሶችን ለማግኘት ዓመታትን አሳለፍን—ከቻይና ሙለሪ ሱሪ፣ ከዓብይ ሸለቆ የግብፅ አበባ፣ እና ከጣሊያን አርበኞች ቨልቬት ፈርባይ።",
+    "philosophyTitle": "ፍልስፍናችን",
+    "integrity": "ታማኝነት",
+    "integrityDesc": "እያንዳንዱ ጥቅል የወንድማማችነት ታሪክ ይናገራል",
+    "comfort": "ምቾት",
+    "comfortDesc": "የእርስዎ ፍፁም እንቅልፍ ተልዕኮታችን ነው",
+    "localCare": "ለሀገር እንክብካቤ",
+    "localCareDesc": "በኢትዮጵያ ቤቶች ላይ ደማቅ ሰራን"
+  },
+  "contact": {
+    "headerLabel": "ኮንሲየርጅ አገልግሎት",
+    "headerTitle": "ለመርዳት እequipped ነን",
+    "headerDesc": "ለጥያቄዎች፣ ስጥቦች፣ እና ልዩ ስጦታዎች አማካሪዎቻችን ዝግጁ ናቸው። በሚመርጡት ዘዴ ይደርሱ።",
+    "phone": "ስልክ",
+    "phoneDesc": "በራስ ይደውሉ",
+    "whatsapp": "ዋትሳፕ",
+    "whatsappDesc": "መልእክት ይላኩ",
+    "emailContact": "ኢሜይል",
+    "emailDesc": "hello@yafet.com",
+    "showroom": "ሱቅ",
+    "showroomAddress": "ቦሌ ማለት፣ አዲስ አበባ",
+    "formTitle": "ጥያቄ ላኩ",
+    "formName": "ስምዎ",
+    "formPhone": "ስልክ ቁጥር",
+    "formDetails": "ጥያቄዎ",
+    "formSubmit": "ጥያቄ ላኩ",
+    "successMsg": "አመሰጣለሁ! በቅርቡ እናግኛለን።"
+  },
+  "callToOrder": {
+    "whatsapp": "ዋትሳፕ",
+    "callToOrder": "ይደውሉ"
+  },
+  "breadcrumb": {
+    "home": "ቤት",
+    "catalog": "ካታሎግ"
+  }
+}

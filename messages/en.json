@@ -1,0 +1,118 @@
+{
+  "common": {
+    "home": "Home",
+    "catalog": "Catalog",
+    "about": "About Us",
+    "contact": "Contact",
+    "aboutUs": "About Us",
+    "heritage": "Heritage",
+    "shipping": "Shipping"
+  },
+  "nav": {
+    "catalog": "Catalog",
+    "heritage": "Heritage",
+    "contact": "Contact"
+  },
+  "home": {
+    "tagline": "Ethically Sourced • Global Luxury",
+    "title": "The Art of",
+    "titleItalic": "Fine Sleep",
+    "subtitle": "Curated premium bedding for the most discerning Ethiopian homes. Quality verified, delivered with care.",
+    "discoverBtn": "Discover Collection",
+    "viewCatalogBtn": "View Catalog",
+    "section1Label": "01 — The Standard",
+    "section1Title": "600 Thread Count Mulberry Silk",
+    "section1Desc": "Our signature silk collection isn't just bedding; it's a dermatological investment. Natural proteins preserve skin hydration and prevent hair breakage while you rest.",
+    "browseAll": "Browse All",
+    "latestArrivals": "Latest Arrivals",
+    "quickView": "Quick View",
+    "viewAll": "View All Collections",
+    "noProducts": "No pieces found in this category."
+  },
+  "testimonial": {
+    "quote": "The quality of the Royal Silk set completely changed my sleep hygiene. It's hard to imagine going back to anything else.",
+    "author": "Dr. Selamawit T.",
+    "location": "Addis Ababa"
+  },
+  "footer": {
+    "tagline": "We source the world's most luxurious fabrics to bring a global standard of rest to Ethiopia. Luxury is not an option; it's a standard of living.",
+    "explore": "Explore",
+    "connect": "Connect",
+    "catalog": "Catalog",
+    "ourStory": "Our Story",
+    "shipping": "Shipping",
+    "callSupport": "Call Support",
+    "whatsapp": "WhatsApp",
+    "email": "Email",
+    "copyright": "© 2026 Yafet Premium. All Rights Reserved."
+  },
+  "catalog": {
+    "headerLabel": "The Full Collection",
+    "title": "Curated",
+    "titleItalic": "Essentials",
+    "categories": {
+      "all": "All",
+      "luxuryCollection": "Luxury Collection",
+      "egyptianCotton": "Egyptian Cotton",
+      "pureSilk": "Pure Silk",
+      "velvet": "Velvet"
+    },
+    "showing": "Showing",
+    "listings": "Listings",
+    "refineSelection": "Refine Selection",
+    "loading": "Refining Collection...",
+    "viewAll": "View All Collections"
+  },
+  "product": {
+    "verified": "Verified",
+    "negotiable": "Negotiable",
+    "textileIntegrity": "Textile Integrity",
+    "textileIntegrityDesc": "Premium materials, verified quality",
+    "whiteGloveDelivery": "White-Glove Delivery",
+    "whiteGloveDeliveryDesc": "Careful handling & delivery",
+    "yafetGuarantee": "The Yafet Guarantee",
+    "yafetGuaranteeDesc": "100% satisfaction guaranteed",
+    "inquireOrder": "Inquire & Order Now",
+    "signatureCollection": "Signature Collection"
+  },
+  "about": {
+    "heroLabel": "Our Heritage",
+    "heroTitle": "Crafting the Perfect Rest",
+    "storyTitle": "A Legacy of Luxury",
+    "storyText": "Yafet was born from a simple belief: that every Ethiopian home deserves access to world-class bedding. Founded in Addis Ababa, we've spent years sourcing the finest materials from across the globe—Mulberry silk from China, Egyptian cotton from the Nile Valley, and velvet weaves from Italian artisans.",
+    "philosophyTitle": "Our Philosophy",
+    "integrity": "Integrity",
+    "integrityDesc": "Every thread tells a story of honest craftsmanship",
+    "comfort": "Comfort",
+    "comfortDesc": "Your perfect night's sleep is our mission",
+    "localCare": "Local Care",
+    "localCareDesc": "Proudly serving Ethiopian homes with pride"
+  },
+  "contact": {
+    "headerLabel": "Concierge Service",
+    "headerTitle": "We're Here to Help",
+    "headerDesc": "Our team is available to assist with inquiries, orders, and special requests. Reach out through your preferred channel.",
+    "phone": "Phone",
+    "phoneDesc": "Call us directly",
+    "whatsapp": "WhatsApp",
+    "whatsappDesc": "Send a message",
+    "emailContact": "Email",
+    "emailDesc": "hello@yafet.com",
+    "showroom": "Showroom",
+    "showroomAddress": "Bole Road, Addis Ababa",
+    "formTitle": "Send an Inquiry",
+    "formName": "Your Name",
+    "formPhone": "Phone Number",
+    "formDetails": "Your Inquiry",
+    "formSubmit": "Send Inquiry",
+    "successMsg": "Thank you! We'll be in touch soon."
+  },
+  "callToOrder": {
+    "whatsapp": "WhatsApp",
+    "callToOrder": "Call to Order"
+  },
+  "breadcrumb": {
+    "home": "Home",
+    "catalog": "Catalog"
+  }
+}
