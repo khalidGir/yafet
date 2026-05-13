@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
+import NextImage from 'next/image';
 import { ArrowRight, Loader2, Star, CheckCircle } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
 import CallToOrderFAB from '@/components/CallToOrderFAB';
@@ -19,6 +20,7 @@ interface PageContent {
   headerLabel: string;
   title: string;
   titleItalic: string;
+  subtitle: string;
   categories: {
     all: string;
     luxuryCollection: string;
@@ -38,8 +40,9 @@ interface PageContent {
 const translations: Record<string, PageContent> = {
   en: {
     headerLabel: "Our Collections",
-    title: "Quality Bedding",
-    titleItalic: "Essentials",
+    title: "Quality Bedding for",
+    titleItalic: "Every Home",
+    subtitle: "Durable, comfortable, and fairly priced bedding curated for Ethiopian families.",
     tagline: "Quality Verified • Locally Delivered",
     categories: {
       all: "Show All",
@@ -58,7 +61,8 @@ const translations: Record<string, PageContent> = {
   am: {
     headerLabel: "ስብስባችን",
     title: "ጥራት ያለው የአልጋ ልብስ",
-    titleItalic: "አስፈላጊ ነገሮች",
+    titleItalic: "ለማንኛውም ቤት",
+    subtitle: "ለኢትዮጵያ ቤተሰቦች የተዘጋጁ ዘላቂ፣ ምቹ እና ተመጣጣኝ ዋጋ ያላቸው የአልጋ ልብሶች።",
     tagline: "ጥራት የተረጋገጠ • በአካባቢው የሚደርስ",
     categories: {
       all: "ሁሉንም አሳይ",
@@ -144,15 +148,31 @@ export default function SinglePageListing() {
         </div>
       </header>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-16 text-center">
-        <p className="text-brand-warm text-sm font-bold tracking-widest uppercase mb-4">
-          {content.tagline}
-        </p>
-        <h1 className="text-4xl md:text-6xl font-bold mb-8">
-          {content.title} <span className="italic font-serif font-normal">{content.titleItalic}</span>
-        </h1>
-        <div className="w-16 h-1 bg-brand-warm mx-auto mb-12 rounded-full" />
-        
+      <div className="relative h-[50vh] md:h-[60vh] flex items-center justify-center overflow-hidden">
+        <div className="absolute inset-0 z-0">
+          <NextImage
+            src="https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&q=80&w=2000"
+            alt="Luxury Bedding"
+            fill
+            className="object-cover brightness-[0.6]"
+            priority
+          />
+        </div>
+        <div className="relative z-10 text-center text-white px-6 max-w-4xl">
+          <p className="text-xs md:text-sm font-bold tracking-widest mb-4 text-brand-warm uppercase">
+            {content.tagline}
+          </p>
+          <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
+            {content.title} <br />
+            <span className="italic font-serif font-normal">{content.titleItalic}</span>
+          </h1>
+          <p className="text-sm md:text-lg font-medium text-gray-200 max-w-xl mx-auto">
+            {content.subtitle}
+          </p>
+        </div>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-12 text-center">
         <div className="flex flex-wrap justify-center gap-2 md:gap-4">
           {categories.map((cat) => (
             <button
