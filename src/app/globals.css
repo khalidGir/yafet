@@ -1,18 +1,23 @@
 @import "tailwindcss";
 
 :root {
-  --background: #faf9f6;
-  --foreground: #1a1a1a;
-  --accent: #c5a059;
+  --background: #ffffff;
+  --foreground: #0f172a;
+  --accent: #1e3a8a;
+  --brand-warm: #d97706;
+  --gray-light: #f8fafc;
+  --gray-border: #e2e8f0;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-accent: var(--accent);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-  --font-serif: "Playfair Display", serif;
+  --color-brand-warm: var(--brand-warm);
+  --color-gray-light: var(--gray-light);
+  --color-gray-border: var(--gray-border);
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-serif: "Instrument Serif", serif;
 }
 
 @layer base {
@@ -24,17 +29,24 @@
     background-color: var(--background);
     color: var(--foreground);
     -webkit-font-smoothing: antialiased;
+    font-family: var(--font-sans);
   }
 }
 
 @layer utilities {
-  .text-luxury-gold {
+  .text-brand-blue {
     color: var(--accent);
   }
-  .bg-luxury-gold {
+  .bg-brand-blue {
     background-color: var(--accent);
   }
-  .parallax-hover {
-    @apply transition-transform duration-[1500ms] ease-out hover:scale-105;
+  .text-brand-warm {
+    color: var(--brand-warm);
+  }
+  .bg-brand-warm {
+    background-color: var(--brand-warm);
+  }
+  .card-hover {
+    @apply transition-all duration-300 hover:shadow-lg hover:-translate-y-1;
   }
 }

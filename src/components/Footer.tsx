@@ -23,27 +23,27 @@ const Footer = ({ locale }: FooterProps) => {
   };
 
   return (
-    <footer className="bg-white border-t border-gray-100 py-12 md:py-20">
+    <footer className="bg-slate-900 border-t border-slate-800 py-16 md:py-24 text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-20">
-          <div>
-            <h2 className="font-serif text-2xl mb-4">YAFET</h2>
-            <p className="text-gray-500 text-sm leading-relaxed">
-              Premium bedding for the Ethiopian home. Quality verified, delivered with care.
+          <div className="space-y-6">
+            <h2 className="font-bold text-3xl tracking-tight text-white">YAFET</h2>
+            <p className="text-slate-400 text-sm leading-relaxed max-w-xs">
+              Quality bedding for every Ethiopian home. Durable, comfortable, and locally delivered with care.
             </p>
           </div>
 
           <div className="grid grid-cols-2 gap-12">
             <div>
-              <h3 className="text-sm font-semibold uppercase tracking-wider text-gray-400 mb-4">
+              <h3 className="text-sm font-bold uppercase tracking-widest text-brand-warm mb-6">
                 Explore
               </h3>
-              <ul className="space-y-3">
+              <ul className="space-y-4">
                 {footerLinks.explore.map((link) => (
                   <li key={link.href}>
                     <Link 
                       href={link.href}
-                      className="text-sm text-gray-600 hover:text-black transition-colors"
+                      className="text-sm font-medium text-slate-300 hover:text-white transition-colors"
                     >
                       {link.label}
                     </Link>
@@ -53,15 +53,15 @@ const Footer = ({ locale }: FooterProps) => {
             </div>
 
             <div>
-              <h3 className="text-sm font-semibold uppercase tracking-wider text-gray-400 mb-4">
+              <h3 className="text-sm font-bold uppercase tracking-widest text-brand-warm mb-6">
                 Connect
               </h3>
-              <ul className="space-y-3">
+              <ul className="space-y-4">
                 {footerLinks.connect.map((link) => (
                   <li key={link.label}>
                     <a 
                       href={link.href}
-                      className="text-sm text-gray-600 hover:text-black transition-colors"
+                      className="text-sm font-medium text-slate-300 hover:text-white transition-colors"
                     >
                       {link.label}
                     </a>
@@ -72,9 +72,9 @@ const Footer = ({ locale }: FooterProps) => {
           </div>
         </div>
 
-        <div className="mt-16 pt-8 border-t border-gray-100 text-center">
-          <p className="text-xs text-gray-400 uppercase tracking-wider">
-            © {currentYear} Yafet Premium. All Rights Reserved.
+        <div className="mt-20 pt-8 border-t border-slate-800 text-center">
+          <p className="text-[10px] font-bold text-slate-500 uppercase tracking-[0.2em]">
+            © {currentYear} Yafet Premium Bedding. Quality you can trust.
           </p>
         </div>
       </div>

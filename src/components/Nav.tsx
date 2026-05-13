@@ -79,9 +79,9 @@ const Nav = ({ locale }: NavProps) => {
               ))}
               <button
                 onClick={toggleLanguage}
-                className="mt-2 px-4 py-3 text-sm font-medium bg-gray-100 hover:bg-luxury-gold hover:text-white rounded-lg transition-colors text-left"
+                className="mt-2 px-4 py-3 text-sm font-bold bg-slate-100 text-slate-900 hover:bg-brand-blue hover:text-white rounded-lg transition-colors text-left"
               >
-                {locale === 'en' ? 'Switch to አማሪክ' : 'Switch to English'}
+                {locale === 'en' ? 'Switch to አማርኛ' : 'Switch to English'}
               </button>
             </div>
           </div>

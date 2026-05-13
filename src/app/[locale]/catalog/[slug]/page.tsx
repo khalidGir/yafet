@@ -104,131 +104,132 @@ const ProductPage = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-background">
-        <Loader2 className="animate-spin text-luxury-gold" size={48} />
+      <div className="min-h-screen flex items-center justify-center bg-white">
+        <Loader2 className="animate-spin text-brand-blue" size={48} />
       </div>
     );
   }
 
   if (!product) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-background">
-        <p className="font-serif text-2xl">Product not found.</p>
+      <div className="min-h-screen flex items-center justify-center bg-white">
+        <p className="font-bold text-2xl text-slate-400 uppercase tracking-widest">Product not found.</p>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-background">
-      <header className="sticky top-0 bg-white/95 backdrop-blur-sm z-40 border-b border-gray-100">
+    <div className="min-h-screen bg-white pb-20">
+      <header className="sticky top-0 bg-white/95 backdrop-blur-sm z-40 border-b border-slate-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
-          <div className="flex items-center gap-2 text-sm text-gray-400">
-            <Link href={`/${locale}`} className="hover:text-black transition-colors">
+          <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-tight text-slate-400">
+            <Link href={`/${locale}`} className="hover:text-brand-blue transition-colors">
               {content.breadcrumb.home}
             </Link>
-            <ChevronRight size={14} />
-            <Link href={`/${locale}/catalog`} className="hover:text-black transition-colors">
+            <ChevronRight size={14} className="text-slate-300" />
+            <Link href={`/${locale}/catalog`} className="hover:text-brand-blue transition-colors">
               {content.breadcrumb.catalog}
             </Link>
-            <ChevronRight size={14} />
-            <span className="text-black">{product.name}</span>
+            <ChevronRight size={14} className="text-slate-300" />
+            <span className="text-slate-900 truncate max-w-[100px] md:max-w-none">{product.name}</span>
           </div>
           <button
             onClick={toggleLanguage}
-            className="px-4 py-2 bg-gray-100 text-sm font-medium rounded-full hover:bg-luxury-gold hover:text-white transition-colors"
+            className="px-4 py-2 bg-slate-100 text-brand-blue text-sm font-bold rounded-full hover:bg-brand-blue hover:text-white transition-colors"
           >
             {locale === 'en' ? 'አማ' : 'EN'}
           </button>
         </div>
       </header>
 
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16">
           <div className="space-y-6">
-            <div className="aspect-[4/5] relative overflow-hidden bg-white rounded-lg shadow-lg">
+            <div className="aspect-[4/5] relative overflow-hidden bg-slate-50 rounded-2xl shadow-xl border border-slate-100">
               <img
                 src={product.image_urls[0]}
                 alt={product.name}
-                className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-500"
+                className="object-cover w-full h-full"
               />
               <div className="absolute top-6 left-6">
-                <span className="px-4 py-2 bg-black text-white text-xs font-semibold uppercase tracking-wider">
+                <span className="px-4 py-2 bg-brand-warm text-white text-[10px] font-bold uppercase tracking-widest rounded-lg shadow-lg">
                   {content.signatureCollection}
                 </span>
               </div>
             </div>
           </div>
 
-          <div className="flex flex-col pt-4">
+          <div className="flex flex-col pt-2">
             <div className="flex items-center gap-2 mb-4">
               <div className="flex gap-1">
                 {[1, 2, 3, 4, 5].map((i) => (
-                  <Star key={i} size={12} className="fill-luxury-gold text-luxury-gold" />
+                  <Star key={i} size={14} className="fill-brand-warm text-brand-warm" />
                 ))}
               </div>
-              <span className="text-xs uppercase tracking-wider text-gray-400 font-medium">
-                ({content.verified})
+              <span className="text-[10px] uppercase tracking-widest text-slate-400 font-bold">
+                {content.verified}
               </span>
             </div>
 
-            <h1 className="text-3xl md:text-5xl font-serif mb-6 leading-tight">
+            <h1 className="text-3xl md:text-5xl font-bold mb-6 text-slate-900 leading-tight">
               {product.name}
             </h1>
 
-            <div className="flex items-center gap-6 mb-8 pb-8 border-b border-gray-100">
-              <span className="text-3xl font-light text-gray-900">{product.price}</span>
-              <div className="flex items-center gap-2">
-                <div className="w-2 h-2 rounded-full bg-luxury-gold" />
-                <span className="text-xs uppercase font-semibold text-luxury-gold">
+            <div className="flex flex-wrap items-center gap-4 md:gap-8 mb-8 pb-8 border-b border-slate-100">
+              <span className="text-4xl font-bold text-brand-blue">{product.price}</span>
+              <div className="flex items-center gap-2 bg-brand-warm/10 px-3 py-1.5 rounded-full">
+                <div className="w-2 h-2 rounded-full bg-brand-warm animate-pulse" />
+                <span className="text-[10px] uppercase font-bold text-brand-warm tracking-widest">
                   {content.negotiable}
                 </span>
               </div>
             </div>
 
-            <p className="text-gray-500 leading-relaxed mb-10 text-lg">
+            <p className="text-slate-600 leading-relaxed mb-10 text-lg font-medium italic">
               "{product.description}"
             </p>
 
-            <div className="space-y-6 mb-12">
-              <div className="flex items-start gap-4 p-4 rounded-lg hover:bg-gray-50 transition-colors">
-                <div className="p-3 bg-luxury-gold/10 rounded-full text-luxury-gold">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-4 mb-12">
+              <div className="flex items-start gap-4 p-4 rounded-xl bg-slate-50 border border-slate-100">
+                <div className="p-3 bg-brand-blue/10 rounded-xl text-brand-blue">
                   <CheckCircle size={24} />
                 </div>
                 <div>
-                  <h3 className="text-sm font-semibold uppercase tracking-wider mb-1">
+                  <h3 className="text-xs font-bold uppercase tracking-widest mb-1 text-slate-900">
                     {content.textileIntegrity}
                   </h3>
-                  <p className="text-gray-500 text-sm">{content.textileIntegrityDesc}</p>
+                  <p className="text-slate-500 text-xs font-medium">{content.textileIntegrityDesc}</p>
                 </div>
               </div>
-              <div className="flex items-start gap-4 p-4 rounded-lg hover:bg-gray-50 transition-colors">
-                <div className="p-3 bg-luxury-gold/10 rounded-full text-luxury-gold">
+              <div className="flex items-start gap-4 p-4 rounded-xl bg-slate-50 border border-slate-100">
+                <div className="p-3 bg-brand-blue/10 rounded-xl text-brand-blue">
                   <Truck size={24} />
                 </div>
                 <div>
-                  <h3 className="text-sm font-semibold uppercase tracking-wider mb-1">
+                  <h3 className="text-xs font-bold uppercase tracking-widest mb-1 text-slate-900">
                     {content.whiteGloveDelivery}
                   </h3>
-                  <p className="text-gray-500 text-sm">{content.whiteGloveDeliveryDesc}</p>
+                  <p className="text-slate-500 text-xs font-medium">{content.whiteGloveDeliveryDesc}</p>
                 </div>
               </div>
-              <div className="flex items-start gap-4 p-4 rounded-lg hover:bg-gray-50 transition-colors">
-                <div className="p-3 bg-luxury-gold/10 rounded-full text-luxury-gold">
+              <div className="flex items-start gap-4 p-4 rounded-xl bg-slate-50 border border-slate-100">
+                <div className="p-3 bg-brand-blue/10 rounded-xl text-brand-blue">
                   <ShieldCheck size={24} />
                 </div>
                 <div>
-                  <h3 className="text-sm font-semibold uppercase tracking-wider mb-1">
+                  <h3 className="text-xs font-bold uppercase tracking-widest mb-1 text-slate-900">
                     {content.yafetGuarantee}
                   </h3>
-                  <p className="text-gray-500 text-sm">{content.yafetGuaranteeDesc}</p>
+                  <p className="text-slate-500 text-xs font-medium">{content.yafetGuaranteeDesc}</p>
                 </div>
               </div>
             </div>
 
             <a
               href="tel:+251911223344"
-              className="w-full bg-black text-white py-5 text-center font-semibold tracking-wider uppercase hover:bg-luxury-gold transition-colors shadow-xl"
+              className="w-full bg-brand-blue text-white py-5 rounded-2xl text-center font-bold tracking-widest uppercase hover:bg-brand-warm transition-all shadow-xl flex items-center justify-center gap-3"
             >
+              <Loader2 size={20} className="hidden" /> {/* Placeholder for state */}
               {content.inquireOrder}
             </a>
           </div>

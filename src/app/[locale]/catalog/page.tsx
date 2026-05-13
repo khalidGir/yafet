@@ -37,42 +37,42 @@ interface CatalogContent {
 
 const translations: Record<string, CatalogContent> = {
   en: {
-    headerLabel: "The Full Collection",
-    title: "Curated",
+    headerLabel: "Our Collections",
+    title: "Quality Bedding",
     titleItalic: "Essentials",
     categories: {
-      all: "All",
-      luxuryCollection: "Luxury Collection",
-      egyptianCotton: "Egyptian Cotton",
-      pureSilk: "Pure Silk",
-      velvet: "Velvet",
+      all: "Show All",
+      luxuryCollection: "Premium Silk",
+      egyptianCotton: "Daily Cotton",
+      pureSilk: "Mulberry Silk",
+      velvet: "Velvet Soft",
     },
-    showing: "Showing",
-    listings: "Listings",
-    refineSelection: "Refine Selection",
-    loading: "Refining Collection...",
-    viewAll: "View All Collections",
-    noProducts: "No pieces found in this category.",
-    quickView: "Quick View",
+    showing: "Viewing",
+    listings: "available sets",
+    refineSelection: "Filter by Category",
+    loading: "Loading collection...",
+    viewAll: "See all items",
+    noProducts: "We couldn't find any products in this category.",
+    quickView: "View Details",
   },
   am: {
-    headerLabel: "ሙሉ ስብስብ",
-    title: "የተዘጋጁ",
-    titleItalic: "ማስፈሪያዎች",
+    headerLabel: "ስብስባችን",
+    title: "ጥራት ያለው የአልጋ ልብስ",
+    titleItalic: "አስፈላጊ ነገሮች",
     categories: {
-      all: "ሁሉም",
-      luxuryCollection: "ርዕሰ ጉዳይ ስብስብ",
-      egyptianCotton: "የግብፅ አበባ",
-      pureSilk: "ንፁህ ሱሪ",
-      velvet: "ቨልቬት",
+      all: "ሁሉንም አሳይ",
+      luxuryCollection: "ፕሪሚየም ሐር",
+      egyptianCotton: "የዕለት ተዕለት ጥጥ",
+      pureSilk: "የሾላ ሐር",
+      velvet: "ለስላሳ ቬልቬት",
     },
-    showing: "ማሳየት",
-    listings: "ምጥጥን",
-    refineSelection: "ምርጫን ማስተካከል",
-    loading: "ስብስብ ማስተካከል...",
-    viewAll: "ሁሉንም ስብስቦች ይመልከቱ",
-    noProducts: "በዚህ ምድብ nothing found.",
-    quickView: "ፈጣን ዕይታ",
+    showing: "እያዩ ነው",
+    listings: "የሚገኙ ስብስቦች",
+    refineSelection: "በምድብ ይለዩ",
+    loading: "ስብስቡ በመጫን ላይ ነው...",
+    viewAll: "ሁሉንም እቃዎች ይመልከቱ",
+    noProducts: "በዚህ ምድብ ውስጥ ምንም ምርቶች ማግኘት አልቻልንም።",
+    quickView: "ዝርዝር ይመልከቱ",
   },
 };
 
@@ -223,10 +223,10 @@ export default function CatalogPage() {
 
             {filteredProducts.length === 0 && (
               <div className="py-20 text-center">
-                <p className="font-serif text-2xl text-gray-400">{content.noProducts}</p>
+                <p className="font-bold text-2xl text-slate-400">{content.noProducts}</p>
                 <button
                   onClick={() => setActiveCategory('All')}
-                  className="mt-6 text-sm border-b border-black pb-1 hover:text-luxury-gold hover:border-luxury-gold transition-all"
+                  className="mt-6 text-sm font-bold border-b-2 border-brand-blue pb-1 text-brand-blue hover:text-brand-warm hover:border-brand-warm transition-all uppercase tracking-widest"
                 >
                   {content.viewAll}
                 </button>
@@ -238,12 +238,12 @@ export default function CatalogPage() {
 
       <CallToOrderFAB />
 
-      <footer className="py-12 text-center border-t border-gray-100 bg-white">
-        <Link href={`/${locale}`} className="font-serif text-2xl tracking-wider mb-4 block">
+      <footer className="py-16 text-center border-t border-slate-100 bg-slate-50">
+        <Link href={`/${locale}`} className="font-bold text-3xl tracking-tight text-brand-blue mb-4 block">
           YAFET
         </Link>
-        <span className="text-sm tracking-widest uppercase text-gray-300">
-          Curating Luxury for the Ethiopian Home
+        <span className="text-sm font-bold tracking-widest uppercase text-slate-400">
+          Quality Bedding for Every Ethiopian Home
         </span>
       </footer>
     </div>

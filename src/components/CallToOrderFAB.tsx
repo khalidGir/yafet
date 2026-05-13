@@ -43,10 +43,10 @@ const CallToOrderFAB = () => {
       </a>
       <a
         href="tel:+251911223344"
-        className="bg-black text-white px-5 py-4 rounded-full shadow-2xl flex items-center gap-2 hover:bg-gray-800 transition-all hover:scale-105 active:scale-95 border border-white/20"
+        className="bg-brand-blue text-white px-5 py-4 rounded-full shadow-2xl flex items-center gap-2 hover:bg-brand-warm transition-all hover:scale-105 active:scale-95 border border-white/20"
       >
         <Phone size={20} />
-        <span className="font-semibold uppercase tracking-wider text-xs">{content.callToOrder}</span>
+        <span className="font-bold uppercase tracking-wider text-xs">{content.callToOrder}</span>
       </a>
     </div>
   );
