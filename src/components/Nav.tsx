@@ -55,37 +55,7 @@ const Nav = ({ locale }: NavProps) => {
             </button>
           </div>
 
-          <button
-            onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden p-2 text-gray-600 hover:text-black"
-            aria-label="Toggle menu"
-          >
-            {isOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
         </div>
-
-        {isOpen && (
-          <div className="md:hidden border-t border-gray-100 py-4">
-            <div className="flex flex-col gap-4">
-              {navLinks.map((link) => (
-                <Link 
-                  key={link.href}
-                  href={link.href}
-                  onClick={() => setIsOpen(false)}
-                  className="text-base font-medium text-gray-600 hover:text-black py-2"
-                >
-                  {link.label}
-                </Link>
-              ))}
-              <button
-                onClick={toggleLanguage}
-                className="mt-2 px-4 py-3 text-sm font-bold bg-slate-100 text-slate-900 hover:bg-brand-blue hover:text-white rounded-lg transition-colors text-left"
-              >
-                {locale === 'en' ? 'Switch to አማርኛ' : 'Switch to English'}
-              </button>
-            </div>
-          </div>
-        )}
       </div>
     </nav>
   );

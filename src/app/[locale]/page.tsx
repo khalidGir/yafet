@@ -1,10 +1,10 @@
 'use client';
 
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
-import { ArrowRight, Loader2 } from 'lucide-react';
+import { ArrowRight, Loader2, Star, CheckCircle } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
-import { useEffect, useState } from 'react';
+import CallToOrderFAB from '@/components/CallToOrderFAB';
 
 interface Product {
   id: string;
@@ -12,77 +12,115 @@ interface Product {
   price: string;
   description: string;
   image_urls: string[];
+  category: string;
 }
 
-interface HomeContent {
-  tagline: string;
+interface PageContent {
+  headerLabel: string;
   title: string;
   titleItalic: string;
-  subtitle: string;
-  discoverBtn: string;
-  viewCatalogBtn: string;
-  section1Label: string;
-  section1Title: string;
-  section1Desc: string;
-  browseAll: string;
-  latestArrivals: string;
-  quote: string;
+  categories: {
+    all: string;
+    luxuryCollection: string;
+    egyptianCotton: string;
+    pureSilk: string;
+    velvet: string;
+  };
+  showing: string;
+  listings: string;
+  loading: string;
+  viewAll: string;
+  noProducts: string;
+  quickView: string;
+  tagline: string;
 }
 
-const translations: Record<string, HomeContent> = {
+const translations: Record<string, PageContent> = {
   en: {
-    tagline: "Ethically Sourced • Global Luxury",
-    title: "The Art of",
-    titleItalic: "Fine Sleep",
-    subtitle: "Curated premium bedding for the most discerning Ethiopian homes. Quality verified, delivered with care.",
-    discoverBtn: "Discover Collection",
-    viewCatalogBtn: "View Catalog",
-    section1Label: "01 — The Standard",
-    section1Title: "600 Thread Count Mulberry Silk",
-    section1Desc: "Our signature silk collection isn't just bedding; it's a dermatological investment. Natural proteins preserve skin hydration and prevent hair breakage while you rest.",
-    browseAll: "Browse All",
-    latestArrivals: "Latest Arrivals",
-    quote: "The quality of the Royal Silk set completely changed my sleep hygiene. It's hard to imagine going back to anything else.",
+    headerLabel: "Our Collections",
+    title: "Quality Bedding",
+    titleItalic: "Essentials",
+    tagline: "Quality Verified • Locally Delivered",
+    categories: {
+      all: "Show All",
+      luxuryCollection: "Premium Silk",
+      egyptianCotton: "Daily Cotton",
+      pureSilk: "Mulberry Silk",
+      velvet: "Velvet Soft",
+    },
+    showing: "Viewing",
+    listings: "available sets",
+    loading: "Loading collection...",
+    viewAll: "See all items",
+    noProducts: "We couldn't find any products in this category.",
+    quickView: "Call to Order",
   },
   am: {
-    tagline: "በስነምር የተሰበሰበ • የዓለም ርዕሰ ጉዳይ",
-    title: "የሚያማምር",
-    titleItalic: "እንቅልፍ",
-    subtitle: "ለሚፈልጉት የኢትዮጵያ ቤቶች የተዘጋጁ የላቀ የአልጋ ልብሶች። የተረጋገጠ ጥራት፣ በንኽክት የሚታሰብ።",
-    discoverBtn: "ስብስብ ይመልከቱ",
-    viewCatalogBtn: "ካታሎግ ይመልከቱ",
-    section1Label: "01 — ደረጃ",
-    section1Title: "600 ጥቅል ሙሉርሪ ሱሪ",
-    section1Desc: "የእኛ ፊርማ ሱሪ ስብስብ አልጋ ልብስ ብቻ ሳይሆን የቆዳ ኢንቨስትማንት ነው። ተፈጥሯዊ ፕሮቲን ቆዳን ለስላሳነት ለማስቀረት እና ፀጉር ሊሰብሩ እንዳይጀምር ይረዳል።",
-    browseAll: "ሁሉንም ይመልከቱ",
-    latestArrivals: "አዲስ ምጥጥን",
-    quote: "የሮያል ሱሪ ስብስብ ጥራት የእንቅልፍ ንጽህናን ሙሉ በሙሉ ለወጠ። ወደ ሌላ መሄድ ማሰብ አስቸጋሪ ነው።",
+    headerLabel: "ስብስባችን",
+    title: "ጥራት ያለው የአልጋ ልብስ",
+    titleItalic: "አስፈላጊ ነገሮች",
+    tagline: "ጥራት የተረጋገጠ • በአካባቢው የሚደርስ",
+    categories: {
+      all: "ሁሉንም አሳይ",
+      luxuryCollection: "ፕሪሚየም ሐር",
+      egyptianCotton: "የዕለት ተዕለት ጥጥ",
+      pureSilk: "የሾላ ሐር",
+      velvet: "ለስላሳ ቬልቬት",
+    },
+    showing: "እያዩ ነው",
+    listings: "የሚገኙ ስብስቦች",
+    loading: "ስብስቡ በመጫን ላይ ነው...",
+    viewAll: "ሁሉንም እቃዎች ይመልከቱ",
+    noProducts: "በዚህ ምድብ ውስጥ ምንም ምርቶች ማግኘት አልቻልንም።",
+    quickView: "ለመግዛት ይደውሉ",
   },
 };
 
-export default function HomePage() {
+export default function SinglePageListing() {
   const [products, setProducts] = useState<Product[]>([]);
+  const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
+  const [activeCategory, setActiveCategory] = useState('All');
   const [locale, setLocale] = useState('en');
 
   useEffect(() => {
     const storedLocale = localStorage.getItem('locale') || 'en';
     setLocale(storedLocale);
 
-    async function getProducts() {
+    async function fetchProducts() {
+      setLoading(true);
       const { data } = await supabase
         .from('products')
         .select('*')
-        .limit(3)
         .order('created_at', { ascending: false });
 
-      if (data) setProducts(data);
+      if (data) {
+        setProducts(data);
+        setFilteredProducts(data);
+      }
       setLoading(false);
     }
-    getProducts();
+    fetchProducts();
   }, []);
 
+  useEffect(() => {
+    if (activeCategory === 'All') {
+      setFilteredProducts(products);
+    } else {
+      setFilteredProducts(products.filter(p => p.category === activeCategory));
+    }
+  }, [activeCategory, products]);
+
   const content = translations[locale] || translations.en;
+
+  const categoryKeys = ['all', 'luxuryCollection', 'egyptianCotton', 'pureSilk', 'velvet'];
+  const categories = categoryKeys.map((key) => ({
+    key,
+    label: content.categories[key as keyof typeof content.categories],
+    value: key === 'all' ? 'All' : key === 'luxuryCollection' ? 'Luxury Collection' : 
+           key === 'egyptianCotton' ? 'Egyptian Cotton' : 
+           key === 'pureSilk' ? 'Pure Silk' : 'Velvet',
+  }));
 
   const toggleLanguage = () => {
     const newLocale = locale === 'en' ? 'am' : 'en';
@@ -91,149 +129,130 @@ export default function HomePage() {
   };
 
   return (
-    <div className="min-h-screen bg-background">
-      <header className="relative h-[60vh] md:h-[80vh] flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0 z-0">
-          <Image
-            src="https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&q=80&w=2000"
-            alt="Luxury Bedding"
-            fill
-            className="object-cover brightness-[0.4]"
-            priority
-          />
-        </div>
-
-        <div className="absolute top-4 right-4 z-50">
+    <div className="min-h-screen bg-white">
+      <header className="sticky top-0 bg-white/95 backdrop-blur-sm z-40 border-b border-slate-100">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+          <Link href={`/${locale}`} className="font-bold text-xl tracking-tight text-brand-blue hover:text-brand-warm transition-colors uppercase">
+            YAFET
+          </Link>
           <button
             onClick={toggleLanguage}
-            className="px-4 py-2 bg-white/95 text-brand-blue text-sm font-bold rounded-full hover:bg-brand-warm hover:text-white transition-colors shadow-sm"
+            className="px-4 py-2 bg-slate-100 text-brand-blue text-sm font-bold rounded-full hover:bg-brand-blue hover:text-white transition-colors"
           >
             {locale === 'en' ? 'አማ' : 'EN'}
           </button>
         </div>
-
-        <div className="relative z-10 text-center text-white px-6 max-w-4xl">
-          <p className="text-sm md:text-base font-bold tracking-widest mb-6 text-brand-warm uppercase">
-            {content.tagline}
-          </p>
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-8 leading-tight">
-            {content.title} <br />
-            <span className="italic font-serif font-normal">{content.titleItalic}</span>
-          </h1>
-          <p className="text-base md:text-xl font-medium mb-10 text-gray-100 max-w-2xl mx-auto">
-            {content.subtitle}
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link
-              href={`/${locale}/catalog`}
-              className="bg-brand-blue text-white px-8 py-4 font-bold rounded-lg hover:bg-brand-warm transition-all shadow-lg"
-            >
-              {content.discoverBtn}
-            </Link>
-            <Link
-              href={`/${locale}/catalog`}
-              className="text-white border-2 border-white/50 px-8 py-4 font-bold rounded-lg hover:bg-white/10 transition-colors"
-            >
-              {content.viewCatalogBtn}
-            </Link>
-          </div>
-        </div>
-
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2">
-          <div className="w-1 h-12 bg-gradient-to-b from-brand-warm to-transparent rounded-full" />
-        </div>
       </header>
 
-      <section className="py-16 md:py-24 px-6 max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-20">
-          <div>
-            <p className="text-brand-blue font-bold text-sm tracking-widest uppercase mb-4">
-              {content.section1Label}
-            </p>
-            <h2 className="text-3xl md:text-4xl font-bold mb-6 leading-tight">
-              {content.section1Title}
-            </h2>
-            <p className="text-slate-600 leading-relaxed mb-8">
-              {content.section1Desc}
-            </p>
-            <Link
-              href={`/${locale}/catalog`}
-              className="inline-flex items-center gap-2 text-sm font-bold text-brand-blue hover:text-brand-warm transition-colors"
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-16 text-center">
+        <p className="text-brand-warm text-sm font-bold tracking-widest uppercase mb-4">
+          {content.tagline}
+        </p>
+        <h1 className="text-4xl md:text-6xl font-bold mb-8">
+          {content.title} <span className="italic font-serif font-normal">{content.titleItalic}</span>
+        </h1>
+        <div className="w-16 h-1 bg-brand-warm mx-auto mb-12 rounded-full" />
+        
+        <div className="flex flex-wrap justify-center gap-2 md:gap-4">
+          {categories.map((cat) => (
+            <button
+              key={cat.key}
+              onClick={() => setActiveCategory(cat.value)}
+              className={`px-5 py-2.5 text-sm font-bold rounded-full transition-all ${
+                activeCategory === cat.value
+                  ? 'bg-brand-blue text-white shadow-md'
+                  : 'bg-slate-100 text-slate-500 hover:bg-slate-200'
+              }`}
             >
-              {content.browseAll} <ArrowRight size={16} />
-            </Link>
-          </div>
-          <div className="aspect-[4/3] relative overflow-hidden rounded-2xl shadow-xl">
-            <Image
-              src="https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&q=80&w=1200"
-              alt="Bedding Collection"
-              fill
-              className="object-cover hover:scale-105 transition-transform duration-500"
-            />
-          </div>
+              {cat.label}
+            </button>
+          ))}
         </div>
+      </div>
 
-        <div className="text-center mb-12">
-          <h2 className="text-sm font-bold tracking-widest uppercase text-slate-400">
-            {content.latestArrivals}
-          </h2>
-          <div className="w-16 h-1 bg-brand-warm mx-auto mt-4 rounded-full" />
-        </div>
-
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
         {loading ? (
-          <div className="flex justify-center py-20">
-            <Loader2 className="animate-spin text-brand-blue" size={40} />
+          <div className="flex flex-col items-center justify-center py-40 gap-4">
+            <Loader2 className="animate-spin text-brand-blue" size={48} />
+            <p className="text-sm font-bold tracking-widest text-slate-400 uppercase">{content.loading}</p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {products.map((item) => (
-              <Link
-                key={item.id}
-                href={`/${locale}/catalog/${item.id}`}
-                className="group card-hover p-4 rounded-2xl bg-slate-50 border border-slate-100"
-              >
-                <div className="aspect-[3/4] relative overflow-hidden mb-6 bg-white rounded-xl">
-                  <img
-                    src={item.image_urls[0]}
-                    alt={item.name}
-                    className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300"
-                  />
-                  <div className="absolute top-3 left-3">
-                    <span className="bg-brand-warm text-white text-[10px] font-bold px-2 py-1 rounded-md uppercase">New</span>
+          <>
+            <div className="flex justify-between items-center mb-8 pb-6 border-b border-slate-100">
+              <span className="text-sm font-bold text-slate-400 uppercase tracking-tight">
+                {content.showing} {filteredProducts.length} {content.listings}
+              </span>
+            </div>
+
+            <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8 lg:gap-12">
+              {filteredProducts.map((product) => (
+                <div
+                  key={product.id}
+                  className="group p-3 md:p-5 rounded-2xl bg-white border border-slate-100 shadow-sm hover:shadow-md transition-shadow"
+                >
+                  <div className="aspect-[4/5] relative overflow-hidden mb-6 bg-slate-50 rounded-xl">
+                    <img
+                      src={product.image_urls[0]}
+                      alt={product.name}
+                      className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-500"
+                    />
+                    <div className="absolute top-3 left-3 flex flex-col gap-2">
+                      <span className="bg-brand-warm text-white text-[10px] font-bold px-2 py-1 rounded-md uppercase shadow-sm">Verified</span>
+                    </div>
+                  </div>
+
+                  <div className="space-y-3">
+                    <div className="flex flex-col gap-1">
+                      <h3 className="font-bold text-lg text-slate-900 line-clamp-1">
+                        {product.name}
+                      </h3>
+                      <p className="text-brand-blue font-bold text-xl">{product.price}</p>
+                    </div>
+                    
+                    <p className="text-xs text-slate-500 line-clamp-2 leading-relaxed h-8">
+                      {product.description}
+                    </p>
+
+                    <div className="flex flex-wrap gap-2 pt-1">
+                      <span className="text-[10px] font-bold border border-slate-200 px-2 py-1 rounded-md text-slate-400 uppercase">King/Queen</span>
+                    </div>
+
+                    <a
+                      href="tel:+251911223344"
+                      className="mt-4 w-full bg-slate-900 text-white py-3 rounded-xl text-center font-bold text-xs uppercase tracking-widest hover:bg-brand-blue transition-colors flex items-center justify-center gap-2"
+                    >
+                      {content.quickView}
+                    </a>
                   </div>
                 </div>
-                <h3 className="font-bold text-xl mb-2 text-slate-900 group-hover:text-brand-blue transition-colors">
-                  {item.name}
-                </h3>
-                <p className="text-brand-blue font-bold text-lg">{item.price}</p>
-              </Link>
-            ))}
-          </div>
-        )}
-      </section>
+              ))}
+            </div>
 
-      <section className="bg-slate-900 py-16 md:py-24 px-6 text-white text-center">
-        <div className="max-w-3xl mx-auto">
-          <div className="flex justify-center gap-1 mb-6">
-            {[1, 2, 3, 4, 5].map((i) => (
-              <svg
-                key={i}
-                className="w-5 h-5 fill-current text-brand-warm"
-                viewBox="0 0 24 24"
-              >
-                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-              </svg>
-            ))}
-          </div>
-          <p className="text-xl md:text-2xl font-medium italic mb-8 leading-relaxed text-slate-200">
-            "{content.quote}"
-          </p>
-          <div className="w-8 h-1 bg-brand-warm mx-auto mb-4 rounded-full" />
-          <p className="text-sm font-bold tracking-widest text-slate-400 uppercase">
-            Dr. Selamawit T. • Addis Ababa
-          </p>
-        </div>
-      </section>
+            {filteredProducts.length === 0 && (
+              <div className="py-20 text-center">
+                <p className="font-bold text-2xl text-slate-400">{content.noProducts}</p>
+                <button
+                  onClick={() => setActiveCategory('All')}
+                  className="mt-6 text-sm font-bold border-b-2 border-brand-blue pb-1 text-brand-blue hover:text-brand-warm hover:border-brand-warm transition-all uppercase tracking-widest"
+                >
+                  {content.viewAll}
+                </button>
+              </div>
+            )}
+          </>
+        )}
+      </main>
+
+      <CallToOrderFAB />
+
+      <footer className="py-16 text-center border-t border-slate-100 bg-slate-900 text-white">
+        <Link href={`/${locale}`} className="font-bold text-3xl tracking-tight text-white mb-4 block uppercase">
+          YAFET
+        </Link>
+        <span className="text-xs font-bold tracking-widest uppercase text-slate-500">
+          Quality Bedding for Every Ethiopian Home • Call 0911223344
+        </span>
+      </footer>
     </div>
   );
 }
