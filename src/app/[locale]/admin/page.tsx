@@ -371,6 +371,45 @@ export default function AdminPage() {
                     </button>
                   </div>
                 )}
+
+                <div className="mt-6 pt-6 border-t border-gray-100">
+                  <p className="text-sm text-gray-500 mb-3 text-center">Or paste image URL:</p>
+                  <div className="flex gap-2">
+                    <input
+                      type="url"
+                      placeholder="https://example.com/image.jpg"
+                      className="flex-1 border border-gray-200 rounded-lg px-4 py-2 text-sm outline-none focus:border-luxury-gold"
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter') {
+                          const url = (e.target as HTMLInputElement).value;
+                          if (url) {
+                            setFormData(prev => ({
+                              ...prev,
+                              image_urls: [...prev.image_urls, url]
+                            }));
+                            (e.target as HTMLInputElement).value = '';
+                          }
+                        }
+                      }}
+                    />
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        const input = (e.target as HTMLButtonElement).previousElementSibling as HTMLInputElement;
+                        if (input.value) {
+                          setFormData(prev => ({
+                            ...prev,
+                            image_urls: [...prev.image_urls, input.value]
+                          }));
+                          input.value = '';
+                        }
+                      }}
+                      className="px-4 py-2 bg-gray-100 text-sm font-medium rounded-lg hover:bg-luxury-gold hover:text-white transition-colors"
+                    >
+                      Add
+                    </button>
+                  </div>
+                </div>
               </div>
 
               <div>
