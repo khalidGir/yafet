@@ -121,25 +121,35 @@ export default function AdminPage() {
 
   const uploadImage = async (file: File): Promise<string | null> => {
     setUploadingCount(c => c + 1);
-    const fileExt = file.name.split('.').pop();
+    const fileExt = file.name.split('.').pop() || 'jpg';
     const fileName = `${Date.now()}-${Math.random().toString(36).substring(7)}.${fileExt}`;
 
-    const { error: uploadError } = await supabase.storage
-      .from('produc-image')
-      .upload(fileName, file);
+    try {
+      const { data, error } = await supabase.storage
+        .from('produc-image')
+        .upload(fileName, file, {
+          cacheControl: '3600',
+          upsert: false,
+          contentType: file.type || 'image/jpeg'
+        });
 
-    if (uploadError) {
-      console.error('Upload error:', uploadError);
+      if (error) {
+        console.error('Supabase upload error:', error);
+        setUploadingCount(c => c - 1);
+        return null;
+      }
+
+      const { data: urlData } = supabase.storage
+        .from('produc-image')
+        .getPublicUrl(fileName);
+
+      setUploadingCount(c => c - 1);
+      return urlData.publicUrl;
+    } catch (err) {
+      console.error('Upload exception:', err);
       setUploadingCount(c => c - 1);
       return null;
     }
-
-    const { data: urlData } = supabase.storage
-      .from('produc-image')
-      .getPublicUrl(fileName);
-
-    setUploadingCount(c => c - 1);
-    return urlData.publicUrl;
   };
 
   const handleFileSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
