@@ -123,11 +123,10 @@ export default function AdminPage() {
     setUploadingCount(c => c + 1);
     const fileExt = file.name.split('.').pop();
     const fileName = `${Date.now()}-${Math.random().toString(36).substring(7)}.${fileExt}`;
-    const filePath = `products/${fileName}`;
 
     const { error: uploadError } = await supabase.storage
       .from('produc-image')
-      .upload(filePath, file);
+      .upload(fileName, file);
 
     if (uploadError) {
       console.error('Upload error:', uploadError);
@@ -137,7 +136,7 @@ export default function AdminPage() {
 
     const { data: urlData } = supabase.storage
       .from('produc-image')
-      .getPublicUrl(filePath);
+      .getPublicUrl(fileName);
 
     setUploadingCount(c => c - 1);
     return urlData.publicUrl;
