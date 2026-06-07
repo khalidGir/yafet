@@ -6,24 +6,9 @@
     "auditLog": "C:\\Users\\hp\\ALL_PROJECTS\\Yafet\\logs\\.10b91e9c8d42ea7897552422d591cd7404273c44-audit.json",
     "files": [
         {
-            "date": 1778443587381,
-            "name": "C:\\Users\\hp\\ALL_PROJECTS\\Yafet\\logs\\mcp-puppeteer-2026-05-10.log",
-            "hash": "7eb2c48e00427cba286ec34c89bc886746c1cd8c88ee787cb1ec62a4d79dcb61"
-        },
-        {
-            "date": 1778447874395,
-            "name": "C:\\Users\\hp\\ALL_PROJECTS\\Yafet\\logs\\mcp-puppeteer-2026-05-11.log",
-            "hash": "2055521e51b8705d37ee92429da4f5f5b9a567825d81cd69defea33a62d3a1f9"
-        },
-        {
-            "date": 1778572631513,
-            "name": "C:\\Users\\hp\\ALL_PROJECTS\\Yafet\\logs\\mcp-puppeteer-2026-05-12.log",
-            "hash": "ab7022bab6e5e67b4dd317887c99bd10eea0a033809a42e6f0362d39ba0ee06b"
-        },
-        {
-            "date": 1778659646808,
-            "name": "C:\\Users\\hp\\ALL_PROJECTS\\Yafet\\logs\\mcp-puppeteer-2026-05-13.log",
-            "hash": "f1d83aff39d38e86cf35aca360460270cebdd6c6289567dee098da90e2991bfb"
+            "date": 1780836663609,
+            "name": "C:\\Users\\hp\\ALL_PROJECTS\\Yafet\\logs\\mcp-puppeteer-2026-06-07.log",
+            "hash": "b4e2675cef58c30a0a55de9e9d4a70e84392f322132dfa50b52aadfd601c8c22"
         }
     ],
     "hashType": "sha256"
