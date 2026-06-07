@@ -7,15 +7,7 @@ import Link from 'next/link';
 import { CheckCircle, ShieldCheck, Truck, ChevronRight, Star, Loader2 } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
 import CallToOrderFAB from '@/components/CallToOrderFAB';
-
-interface Product {
-  id: string;
-  name: string;
-  price: string;
-  description: string;
-  image_urls: string[];
-  category: string;
-}
+import type { Product, Variant } from '@/lib/types';
 
 interface ProductContent {
   verified: string;
@@ -28,6 +20,7 @@ interface ProductContent {
   yafetGuaranteeDesc: string;
   inquireOrder: string;
   signatureCollection: string;
+  colorsAvailable: string;
   breadcrumb: {
     home: string;
     catalog: string;
@@ -46,6 +39,7 @@ const translations: Record<string, ProductContent> = {
     yafetGuaranteeDesc: "100% satisfaction guaranteed",
     inquireOrder: "Inquire & Order Now",
     signatureCollection: "Signature Collection",
+    colorsAvailable: "Colors Available",
     breadcrumb: {
       home: "Home",
       catalog: "Catalog",
@@ -62,6 +56,7 @@ const translations: Record<string, ProductContent> = {
     yafetGuaranteeDesc: "100% የሚረካ ማረጋገጫ",
     inquireOrder: "ይወስኑ እና ይላኩ",
     signatureCollection: "ፊርማ ስብስብ",
+    colorsAvailable: "የሚገኙ ቀለሞች",
     breadcrumb: {
       home: "ቤት",
       catalog: "ካታሎግ",
@@ -72,6 +67,7 @@ const translations: Record<string, ProductContent> = {
 const ProductPage = () => {
   const params = useParams();
   const [product, setProduct] = useState<Product | null>(null);
+  const [selectedVariant, setSelectedVariant] = useState<Variant | null>(null);
   const [loading, setLoading] = useState(true);
   const [locale, setLocale] = useState('en');
 
@@ -88,7 +84,12 @@ const ProductPage = () => {
         .eq('id', params.slug)
         .single();
 
-      if (data) setProduct(data);
+      if (data) {
+        setProduct(data);
+        if (data.variants?.length > 0) {
+          setSelectedVariant(data.variants[0]);
+        }
+      }
       setLoading(false);
     }
     fetchProduct();
@@ -101,6 +102,10 @@ const ProductPage = () => {
     setLocale(newLocale);
     localStorage.setItem('locale', newLocale);
   };
+
+  const displayPrice = selectedVariant?.price || product?.price || '';
+  const displayImages = selectedVariant?.image_urls || product?.image_urls || [];
+  const hasVariants = product?.variants && product.variants.length > 0;
 
   if (loading) {
     return (
@@ -147,7 +152,7 @@ const ProductPage = () => {
           <div className="space-y-6">
             <div className="aspect-[4/5] relative overflow-hidden bg-slate-50 rounded-2xl shadow-xl border border-slate-100">
               <img
-                src={product.image_urls[0]}
+                src={displayImages[0]}
                 alt={product.name}
                 className="object-cover w-full h-full"
               />
@@ -157,6 +162,16 @@ const ProductPage = () => {
                 </span>
               </div>
             </div>
+
+            {displayImages.length > 1 && (
+              <div className="grid grid-cols-4 gap-3">
+                {displayImages.map((url, i) => (
+                  <div key={i} className="aspect-square rounded-xl overflow-hidden bg-slate-50 border border-slate-100">
+                    <img src={url} alt="" className="w-full h-full object-cover" />
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
 
           <div className="flex flex-col pt-2">
@@ -176,7 +191,7 @@ const ProductPage = () => {
             </h1>
 
             <div className="flex flex-wrap items-center gap-4 md:gap-8 mb-8 pb-8 border-b border-slate-100">
-              <span className="text-4xl font-bold text-brand-blue">{product.price}</span>
+              <span className="text-4xl font-bold text-brand-blue">{displayPrice}</span>
               <div className="flex items-center gap-2 bg-brand-warm/10 px-3 py-1.5 rounded-full">
                 <div className="w-2 h-2 rounded-full bg-brand-warm animate-pulse" />
                 <span className="text-[10px] uppercase font-bold text-brand-warm tracking-widest">
@@ -185,8 +200,40 @@ const ProductPage = () => {
               </div>
             </div>
 
+            {hasVariants && (
+              <div className="mb-8">
+                <p className="text-xs font-bold uppercase tracking-widest text-slate-500 mb-3">
+                  {content.colorsAvailable}
+                </p>
+                <div className="flex flex-wrap gap-3">
+                  {product.variants.map((v, i) => (
+                    <button
+                      key={i}
+                      onClick={() => setSelectedVariant(v)}
+                      className={`flex items-center gap-3 px-4 py-3 rounded-xl border-2 transition-all ${
+                        selectedVariant?.color === v.color
+                          ? 'border-brand-blue bg-brand-blue/5'
+                          : 'border-slate-200 hover:border-slate-400'
+                      }`}
+                    >
+                      <div className="w-8 h-8 rounded-full overflow-hidden bg-slate-100 border border-slate-200 flex-shrink-0">
+                        {v.image_urls[0] && (
+                          <img src={v.image_urls[0]} alt={v.color} className="w-full h-full object-cover" />
+                        )}
+                      </div>
+                      <span className={`text-sm font-bold ${
+                        selectedVariant?.color === v.color ? 'text-brand-blue' : 'text-slate-700'
+                      }`}>
+                        {v.color}
+                      </span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+
             <p className="text-slate-600 leading-relaxed mb-10 text-lg font-medium italic">
-              "{product.description}"
+              &ldquo;{product.description}&rdquo;
             </p>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-4 mb-12">
@@ -229,7 +276,6 @@ const ProductPage = () => {
               href="tel:+251911223344"
               className="w-full bg-brand-blue text-white py-5 rounded-2xl text-center font-bold tracking-widest uppercase hover:bg-brand-warm transition-all shadow-xl flex items-center justify-center gap-3"
             >
-              <Loader2 size={20} className="hidden" /> {/* Placeholder for state */}
               {content.inquireOrder}
             </a>
           </div>

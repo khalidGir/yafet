@@ -18,6 +18,10 @@ const products = [
     price: '12,500 ETB',
     category: 'Pure Silk',
     image_urls: ['https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&q=80&w=1200'],
+    variants: [
+      { color: 'Champagne', price: '12,500 ETB', image_urls: ['https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&q=80&w=1200'] },
+      { color: 'Blush Pink', price: '13,000 ETB', image_urls: ['https://images.unsplash.com/photo-1629949009765-40f34d3f4138?auto=format&fit=crop&q=80&w=1200'] },
+    ],
   },
   {
     name: 'Egyptian Cotton Classic',
@@ -25,6 +29,10 @@ const products = [
     price: '8,200 ETB',
     category: 'Egyptian Cotton',
     image_urls: ['https://images.unsplash.com/photo-1629949009765-40f34d3f4138?auto=format&fit=crop&q=80&w=1200'],
+    variants: [
+      { color: 'White', price: '8,200 ETB', image_urls: ['https://images.unsplash.com/photo-1629949009765-40f34d3f4138?auto=format&fit=crop&q=80&w=1200'] },
+      { color: 'Ivory', price: '8,200 ETB', image_urls: ['https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&q=80&w=1200'] },
+    ],
   },
   {
     name: 'Midnight Velvet Duvet',
@@ -46,6 +54,10 @@ const products = [
     price: '11,000 ETB',
     category: 'Pure Silk',
     image_urls: ['https://images.unsplash.com/photo-1629949009765-40f34d3f4138?auto=format&fit=crop&q=80&w=1000'],
+    variants: [
+      { color: 'Silver Mist', price: '11,000 ETB', image_urls: ['https://images.unsplash.com/photo-1629949009765-40f34d3f4138?auto=format&fit=crop&q=80&w=1000'] },
+      { color: 'Dusty Rose', price: '11,500 ETB', image_urls: ['https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&q=80&w=1000'] },
+    ],
   },
   {
     name: 'Cloud White Hotel Series',

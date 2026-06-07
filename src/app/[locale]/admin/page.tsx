@@ -3,9 +3,9 @@
 import React, { useEffect, useState, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Plus, Trash2, Loader2, Package, Upload, X, ImagePlus } from 'lucide-react';
+import { Plus, Trash2, Loader2, Package, X, ImagePlus, Palette } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
-import type { Product } from '@/lib/types';
+import type { Product, Variant } from '@/lib/types';
 
 interface AdminContent {
   title: string;
@@ -30,6 +30,11 @@ interface AdminContent {
   uploading: string;
   mainImage: string;
   addMoreImages: string;
+  variants: string;
+  addVariant: string;
+  colorName: string;
+  variantPrice: string;
+  variantImages: string;
 }
 
 const translations: Record<string, AdminContent> = {
@@ -37,7 +42,7 @@ const translations: Record<string, AdminContent> = {
     title: "Inventory Management",
     addProduct: "Add New Product",
     productName: "Product Name",
-    price: "Price (ETB)",
+    price: "Base Price (ETB)",
     description: "Description",
     imageUpload: "Product Images",
     category: "Category",
@@ -56,12 +61,17 @@ const translations: Record<string, AdminContent> = {
     uploading: "Uploading...",
     mainImage: "Main",
     addMoreImages: "Add More",
+    variants: "Color Variants",
+    addVariant: "Add Variant",
+    colorName: "Color Name",
+    variantPrice: "Price (ETB)",
+    variantImages: "Variant Images",
   },
   am: {
     title: "የማከማቻ አስተዳደር",
     addProduct: "አዲስ ምርት ጨምሩ",
     productName: "ምርት ስም",
-    price: "ዋጋ (ETB)",
+    price: "መሰረታዊ ዋጋ (ETB)",
     description: "መግለጫ",
     imageUpload: "ምርት ምስሎች",
     category: "ምድብ",
@@ -80,6 +90,11 @@ const translations: Record<string, AdminContent> = {
     uploading: "በማስቀመጥ...",
     mainImage: "ዋና",
     addMoreImages: "ተጨማሪ",
+    variants: "የቀለም ልዩነቶች",
+    addVariant: "ልዩነት ጨምሩ",
+    colorName: "የቀለም ስም",
+    variantPrice: "ዋጋ (ETB)",
+    variantImages: "የልዩነት ምስሎች",
   },
 };
 
@@ -99,6 +114,11 @@ export default function AdminPage() {
     description: '',
     image_urls: [] as string[],
     category: '',
+    variants: [] as Variant[],
+  });
+
+  const [currentVariant, setCurrentVariant] = useState<Variant>({
+    color: '', price: '', image_urls: [],
   });
 
   useEffect(() => {
@@ -196,11 +216,17 @@ export default function AdminPage() {
     }
     setSubmitting(true);
 
-    const { error } = await supabase.from('products').insert([formData]);
+    const payload = {
+      ...formData,
+      variants: formData.variants.length > 0 ? formData.variants : [],
+    };
+
+    const { error } = await supabase.from('products').insert([payload]);
 
     if (!error) {
       setSuccess(true);
-      setFormData({ name: '', price: '', description: '', image_urls: [], category: '' });
+      setFormData({ name: '', price: '', description: '', image_urls: [], category: '', variants: [] });
+      setCurrentVariant({ color: '', price: '', image_urls: [] });
       fetchProducts();
       setTimeout(() => setSuccess(false), 3000);
     }
@@ -212,6 +238,25 @@ export default function AdminPage() {
       await supabase.from('products').delete().eq('id', id);
       fetchProducts();
     }
+  };
+
+  const addVariant = () => {
+    if (!currentVariant.color.trim() || !currentVariant.price.trim() || currentVariant.image_urls.length === 0) {
+      alert('Please fill in color name, price, and at least one image for the variant.');
+      return;
+    }
+    setFormData(prev => ({
+      ...prev,
+      variants: [...prev.variants, { ...currentVariant }],
+    }));
+    setCurrentVariant({ color: '', price: '', image_urls: [] });
+  };
+
+  const removeVariant = (index: number) => {
+    setFormData(prev => ({
+      ...prev,
+      variants: prev.variants.filter((_, i) => i !== index),
+    }));
   };
 
   const toggleLanguage = () => {
@@ -237,7 +282,7 @@ export default function AdminPage() {
           </div>
           <div className="flex items-center gap-4">
             <Link href={`/${locale}`} className="text-sm text-gray-500 hover:text-black">
-              ← Back to Site
+              ← {locale === 'en' ? 'Back to Site' : 'ወደ ጣቢያ'}
             </Link>
             <button
               onClick={toggleLanguage}
@@ -441,6 +486,73 @@ export default function AdminPage() {
                 </select>
               </div>
 
+              <div className="border-t border-gray-100 pt-6">
+                <h3 className="text-lg font-medium mb-4 flex items-center gap-2">
+                  <Palette className="text-luxury-gold" size={20} />
+                  {content.variants}
+                </h3>
+
+                {formData.variants.length > 0 && (
+                  <div className="mb-4 space-y-2">
+                    {formData.variants.map((v, i) => (
+                      <div key={i} className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
+                        <div className="w-10 h-10 rounded-full overflow-hidden bg-gray-200 flex-shrink-0">
+                          {v.image_urls[0] && (
+                            <img src={v.image_urls[0]} alt={v.color} className="w-full h-full object-cover" />
+                          )}
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <p className="text-sm font-medium">{v.color}</p>
+                          <p className="text-xs text-gray-500">{v.price}</p>
+                        </div>
+                        <button
+                          type="button"
+                          onClick={() => removeVariant(i)}
+                          className="p-1.5 text-gray-400 hover:text-red-500 transition-colors"
+                        >
+                          <X size={14} />
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                <div className="bg-gray-50 rounded-lg p-4 space-y-3">
+                  <div className="grid grid-cols-2 gap-3">
+                    <input
+                      type="text"
+                      placeholder={content.colorName}
+                      value={currentVariant.color}
+                      onChange={(e) => setCurrentVariant({ ...currentVariant, color: e.target.value })}
+                      className="border border-gray-200 rounded-lg px-4 py-2 text-sm outline-none focus:border-luxury-gold"
+                    />
+                    <input
+                      type="text"
+                      placeholder={content.variantPrice}
+                      value={currentVariant.price}
+                      onChange={(e) => setCurrentVariant({ ...currentVariant, price: e.target.value })}
+                      className="border border-gray-200 rounded-lg px-4 py-2 text-sm outline-none focus:border-luxury-gold"
+                    />
+                  </div>
+                  <div className="flex gap-2">
+                    <input
+                      type="url"
+                      placeholder="https://example.com/variant-image.jpg"
+                      className="flex-1 border border-gray-200 rounded-lg px-4 py-2 text-sm outline-none focus:border-luxury-gold"
+                      value={currentVariant.image_urls[0] || ''}
+                      onChange={(e) => setCurrentVariant({ ...currentVariant, image_urls: [e.target.value] })}
+                    />
+                    <button
+                      type="button"
+                      onClick={addVariant}
+                      className="px-4 py-2 bg-luxury-gold text-white text-sm font-medium rounded-lg hover:bg-black transition-colors"
+                    >
+                      {content.addVariant}
+                    </button>
+                  </div>
+                </div>
+              </div>
+
               <button
                 type="submit"
                 disabled={submitting || uploadingCount > 0}
@@ -484,6 +596,9 @@ export default function AdminPage() {
                         <h3 className="font-medium text-gray-900 truncate">{product.name}</h3>
                         <p className="text-sm text-gray-500">{product.price}</p>
                         <p className="text-xs text-gray-400 uppercase">{product.category}</p>
+                        {product.variants?.length > 0 && (
+                          <p className="text-xs text-luxury-gold">{product.variants.length} color(s)</p>
+                        )}
                       </div>
                       <button
                         onClick={() => handleDelete(product.id)}
