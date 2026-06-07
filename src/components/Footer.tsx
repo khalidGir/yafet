@@ -16,8 +16,8 @@ const Footer = ({ locale }: FooterProps) => {
       { href: `/${locale}/about`, label: 'About' },
     ],
     connect: [
-      { href: 'tel:+251911223344', label: 'Call Support' },
-      { href: 'https://wa.me/251911223344', label: 'WhatsApp' },
+      { href: 'tel:+251950294422', label: 'Call Support' },
+      { href: 'https://wa.me/251950294422', label: 'WhatsApp' },
       { href: 'mailto:hello@yafet.com', label: 'Email' },
     ],
   };

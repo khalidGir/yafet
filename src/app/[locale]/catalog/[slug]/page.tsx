@@ -273,7 +273,7 @@ const ProductPage = () => {
             </div>
 
             <a
-              href="tel:+251911223344"
+              href="tel:+251950294422"
               className="w-full bg-brand-blue text-white py-5 rounded-2xl text-center font-bold tracking-widest uppercase hover:bg-brand-warm transition-all shadow-xl flex items-center justify-center gap-3"
             >
               {content.inquireOrder}

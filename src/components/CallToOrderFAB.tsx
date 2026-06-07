@@ -32,7 +32,7 @@ const CallToOrderFAB = () => {
   return (
     <div className="fixed bottom-6 right-6 flex flex-col gap-3 z-50">
       <a
-        href="https://wa.me/251911223344"
+        href="https://wa.me/251950294422"
         target="_blank"
         rel="noopener noreferrer"
         className="bg-green-600 text-white p-4 rounded-full shadow-2xl hover:bg-green-700 transition-all hover:scale-110 active:scale-95 flex flex-col items-center gap-1"
@@ -42,7 +42,7 @@ const CallToOrderFAB = () => {
         <span className="text-[10px] font-semibold uppercase tracking-wider">{content.whatsapp}</span>
       </a>
       <a
-        href="tel:+251911223344"
+        href="tel:+251950294422"
         className="bg-brand-blue text-white px-5 py-4 rounded-full shadow-2xl flex items-center gap-2 hover:bg-brand-warm transition-all hover:scale-105 active:scale-95 border border-white/20"
       >
         <Phone size={20} />

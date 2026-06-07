@@ -268,7 +268,7 @@ export default function SinglePageListing() {
           YAFET
         </Link>
         <span className="text-xs font-bold tracking-widest uppercase text-slate-500">
-          Quality Bedding for Every Ethiopian Home • Call 0911223344
+          Quality Bedding for Every Ethiopian Home • Call 0950 29 44 22
         </span>
       </footer>
     </div>

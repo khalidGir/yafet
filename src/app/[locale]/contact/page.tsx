@@ -96,8 +96,8 @@ export default function ContactPage() {
   };
 
   const contactInfo = [
-    { icon: <Phone size={24} />, label: content.phone, value: "+251 911 22 33 44", href: "tel:+251911223344" },
-    { icon: <MessageCircle size={24} />, label: content.whatsapp, value: content.whatsappDesc, href: "https://wa.me/251911223344" },
+    { icon: <Phone size={24} />, label: content.phone, value: "+251 950 29 44 22", href: "tel:+251950294422" },
+    { icon: <MessageCircle size={24} />, label: content.whatsapp, value: content.whatsappDesc, href: "https://wa.me/251950294422" },
     { icon: <Mail size={24} />, label: content.emailContact, value: content.emailDesc, href: "mailto:hello@yafet.com" },
     { icon: <MapPin size={24} />, label: content.showroom, value: content.showroomAddress, href: "#" },
   ];
