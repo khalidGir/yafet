@@ -134,7 +134,7 @@ export default function AdminPage() {
         });
 
       if (error) {
-        console.error('Supabase upload error:', error);
+        console.error('Supabase upload error:', error.message, error);
         setUploadingCount(c => c - 1);
         return null;
       }
