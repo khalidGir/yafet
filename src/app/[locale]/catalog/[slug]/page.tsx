@@ -35,7 +35,7 @@ const translations: Record<string, ProductContent> = {
     textileIntegrityDesc: "Premium materials, verified quality",
     whiteGloveDelivery: "White-Glove Delivery",
     whiteGloveDeliveryDesc: "Careful handling & delivery",
-    yafetGuarantee: "The Yafet Guarantee",
+    yafetGuarantee: "The Ethioconfurt Guarantee",
     yafetGuaranteeDesc: "100% satisfaction guaranteed",
     inquireOrder: "Inquire & Order Now",
     signatureCollection: "Signature Collection",
@@ -52,7 +52,7 @@ const translations: Record<string, ProductContent> = {
     textileIntegrityDesc: "ላቀ አምርቲያሎች፣ የተረጋገጠ ጥራት",
     whiteGloveDelivery: "ትኩረት ማጓጓዝ",
     whiteGloveDeliveryDesc: "ጥንቃቄ የተሞላው ማጓጓዝ",
-    yafetGuarantee: "የYafet ማረጋገጫ",
+    yafetGuarantee: "የEthioconfurt ማረጋገጫ",
     yafetGuaranteeDesc: "100% የሚረካ ማረጋገጫ",
     inquireOrder: "ይወስኑ እና ይላኩ",
     signatureCollection: "ፊርማ ስብስብ",
@@ -69,10 +69,10 @@ const ProductPage = () => {
   const [product, setProduct] = useState<Product | null>(null);
   const [selectedVariant, setSelectedVariant] = useState<Variant | null>(null);
   const [loading, setLoading] = useState(true);
-  const [locale, setLocale] = useState('en');
+  const [locale, setLocale] = useState('am');
 
   useEffect(() => {
-    const storedLocale = localStorage.getItem('locale') || 'en';
+    const storedLocale = localStorage.getItem('locale') || 'am';
     setLocale(storedLocale);
 
     async function fetchProduct() {
@@ -95,7 +95,7 @@ const ProductPage = () => {
     fetchProduct();
   }, [params.slug]);
 
-  const content = translations[locale] || translations.en;
+  const content = translations[locale] || translations.am;
 
   const toggleLanguage = () => {
     const newLocale = locale === 'en' ? 'am' : 'en';
@@ -142,7 +142,7 @@ const ProductPage = () => {
             onClick={toggleLanguage}
             className="px-4 py-2 bg-slate-100 text-brand-blue text-sm font-bold rounded-full hover:bg-brand-blue hover:text-white transition-colors"
           >
-            {locale === 'en' ? 'አማ' : 'EN'}
+            {locale === 'am' ? '🇬🇧' : '🇪🇹'}
           </button>
         </div>
       </header>

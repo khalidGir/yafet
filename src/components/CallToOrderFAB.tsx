@@ -20,14 +20,14 @@ const translations: Record<string, FABContent> = {
 };
 
 const CallToOrderFAB = () => {
-  const [locale, setLocale] = useState('en');
+  const [locale, setLocale] = useState('am');
 
   useEffect(() => {
-    const storedLocale = localStorage.getItem('locale') || 'en';
+    const storedLocale = localStorage.getItem('locale') || 'am';
     setLocale(storedLocale);
   }, []);
 
-  const content = translations[locale] || translations.en;
+  const content = translations[locale] || translations.am;
 
   return (
     <div className="fixed bottom-6 right-6 flex flex-col gap-3 z-50">

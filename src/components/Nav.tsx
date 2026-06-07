@@ -34,7 +34,7 @@ const Nav = ({ locale }: NavProps) => {
             href={`/${locale}`} 
             className="font-serif text-xl md:text-2xl tracking-wider text-black hover:text-luxury-gold transition-colors"
           >
-            YAFET
+            ETHIOCONFURT
           </Link>
 
           <div className="hidden md:flex items-center gap-8">
@@ -51,7 +51,7 @@ const Nav = ({ locale }: NavProps) => {
               onClick={toggleLanguage}
               className="ml-4 px-4 py-2 text-sm font-medium bg-gray-100 hover:bg-luxury-gold hover:text-white rounded-full transition-colors"
             >
-              {locale === 'en' ? 'አማ' : 'EN'}
+              {locale === 'am' ? '🇬🇧' : '🇪🇹'}
             </button>
           </div>
 

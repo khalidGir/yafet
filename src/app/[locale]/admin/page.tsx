@@ -120,7 +120,7 @@ export default function AdminPage() {
   const [uploadingCount, setUploadingCount] = useState(0);
   const [success, setSuccess] = useState(false);
   const [successMsg, setSuccessMsg] = useState('');
-  const [locale, setLocale] = useState('en');
+  const [locale, setLocale] = useState('am');
   const [dragOver, setDragOver] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -134,12 +134,12 @@ export default function AdminPage() {
   });
 
   useEffect(() => {
-    const storedLocale = localStorage.getItem('locale') || 'en';
+    const storedLocale = localStorage.getItem('locale') || 'am';
     setLocale(storedLocale);
     fetchProducts();
   }, []);
 
-  const content = translations[locale] || translations.en;
+  const content = translations[locale] || translations.am;
 
   const fetchProducts = async () => {
     setLoading(true);
@@ -325,7 +325,7 @@ export default function AdminPage() {
               onClick={toggleLanguage}
               className="px-4 py-2 bg-gray-100 text-sm font-medium rounded-full hover:bg-luxury-gold hover:text-white transition-colors"
             >
-              {locale === 'en' ? 'አማ' : 'EN'}
+              {locale === 'am' ? '🇬🇧' : '🇪🇹'}
             </button>
           </div>
         </div>

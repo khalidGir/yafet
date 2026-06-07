@@ -18,7 +18,7 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  title: "Yafet | Premium Bedding & Home Essentials",
+  title: "Ethioconfurt | Premium Bedding & Home Essentials",
   description: "Luxury bedding catalog for the Ethiopian home. Silk, Egyptian Cotton, and more.",
 };
 
@@ -28,7 +28,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="am">
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${playfair.variable} h-full antialiased`}
       >

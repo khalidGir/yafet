@@ -85,10 +85,10 @@ export default function SinglePageListing() {
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [activeCategory, setActiveCategory] = useState('All');
-  const [locale, setLocale] = useState('en');
+  const [locale, setLocale] = useState('am');
 
   useEffect(() => {
-    const storedLocale = localStorage.getItem('locale') || 'en';
+    const storedLocale = localStorage.getItem('locale') || 'am';
     setLocale(storedLocale);
 
     async function fetchProducts() {
@@ -115,7 +115,7 @@ export default function SinglePageListing() {
     }
   }, [activeCategory, products]);
 
-  const content = translations[locale] || translations.en;
+  const content = translations[locale] || translations.am;
 
   const categoryKeys = ['all', 'luxuryCollection', 'egyptianCotton', 'pureSilk', 'velvet'];
   const categories = categoryKeys.map((key) => ({
@@ -137,13 +137,13 @@ export default function SinglePageListing() {
       <header className="sticky top-0 bg-white/95 backdrop-blur-sm z-40 border-b border-slate-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
           <Link href={`/${locale}`} className="font-bold text-xl tracking-tight text-brand-blue hover:text-brand-warm transition-colors uppercase">
-            YAFET
+            ETHIOCONFURT
           </Link>
           <button
             onClick={toggleLanguage}
             className="px-4 py-2 bg-slate-100 text-brand-blue text-sm font-bold rounded-full hover:bg-brand-blue hover:text-white transition-colors"
           >
-            {locale === 'en' ? 'አማ' : 'EN'}
+            {locale === 'am' ? '🇬🇧' : '🇪🇹'}
           </button>
         </div>
       </header>
@@ -265,7 +265,7 @@ export default function SinglePageListing() {
 
       <footer className="py-16 text-center border-t border-slate-100 bg-slate-900 text-white">
         <Link href={`/${locale}`} className="font-bold text-3xl tracking-tight text-white mb-4 block uppercase">
-          YAFET
+          ETHIOCONFURT
         </Link>
         <span className="text-xs font-bold tracking-widest uppercase text-slate-500">
           Quality Bedding for Every Ethiopian Home • Call 0950 29 44 22
