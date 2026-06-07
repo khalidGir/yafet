@@ -206,9 +206,10 @@ export default function SinglePageListing() {
 
             <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8 lg:gap-12">
               {filteredProducts.map((product) => (
-                <div
+                <Link
                   key={product.id}
-                  className="group p-3 md:p-5 rounded-2xl bg-white border border-slate-100 shadow-sm hover:shadow-md transition-shadow"
+                  href={`/${locale}/catalog/${product.id}`}
+                  className="group p-3 md:p-5 rounded-2xl bg-white border border-slate-100 shadow-sm hover:shadow-md transition-shadow block"
                 >
                   <div className="aspect-[4/5] relative overflow-hidden mb-6 bg-slate-50 rounded-xl">
                     <img
@@ -237,14 +238,11 @@ export default function SinglePageListing() {
                       <span className="text-[10px] font-bold border border-slate-200 px-2 py-1 rounded-md text-slate-400 uppercase">King/Queen</span>
                     </div>
 
-                    <a
-                      href="tel:+251911223344"
-                      className="mt-4 w-full bg-slate-900 text-white py-3 rounded-xl text-center font-bold text-xs uppercase tracking-widest hover:bg-brand-blue transition-colors flex items-center justify-center gap-2"
-                    >
+                    <span className="mt-4 w-full bg-slate-900 text-white py-3 rounded-xl text-center font-bold text-xs uppercase tracking-widest hover:bg-brand-blue transition-colors flex items-center justify-center gap-2">
                       {content.quickView}
-                    </a>
+                    </span>
                   </div>
-                </div>
+                </Link>
               ))}
             </div>
 

@@ -10,6 +10,7 @@ import type { Product, Variant } from '@/lib/types';
 interface AdminContent {
   title: string;
   addProduct: string;
+  editProduct: string;
   productName: string;
   price: string;
   description: string;
@@ -21,10 +22,14 @@ interface AdminContent {
   pureSilk: string;
   velvet: string;
   addBtn: string;
+  updateBtn: string;
+  cancelBtn: string;
   inventory: string;
   noProducts: string;
+  edit: string;
   delete: string;
   added: string;
+  updated: string;
   dragDrop: string;
   orClick: string;
   uploading: string;
@@ -41,6 +46,7 @@ const translations: Record<string, AdminContent> = {
   en: {
     title: "Inventory Management",
     addProduct: "Add New Product",
+    editProduct: "Edit Product",
     productName: "Product Name",
     price: "Base Price (ETB)",
     description: "Description",
@@ -52,10 +58,14 @@ const translations: Record<string, AdminContent> = {
     pureSilk: "Pure Silk",
     velvet: "Velvet",
     addBtn: "Add Product",
+    updateBtn: "Update Product",
+    cancelBtn: "Cancel",
     inventory: "Current Inventory",
     noProducts: "No products yet. Add your first product above.",
+    edit: "Edit",
     delete: "Delete",
     added: "Product added successfully!",
+    updated: "Product updated successfully!",
     dragDrop: "Drag images here",
     orClick: "or click to select",
     uploading: "Uploading...",
@@ -70,6 +80,7 @@ const translations: Record<string, AdminContent> = {
   am: {
     title: "የማከማቻ አስተዳደር",
     addProduct: "አዲስ ምርት ጨምሩ",
+    editProduct: "ምርት አስተካክል",
     productName: "ምርት ስም",
     price: "መሰረታዊ ዋጋ (ETB)",
     description: "መግለጫ",
@@ -81,10 +92,14 @@ const translations: Record<string, AdminContent> = {
     pureSilk: "ንፁህ ሱሪ",
     velvet: "ቨልቬት",
     addBtn: "ምርት ጨምሩ",
+    updateBtn: "ምርት አዘምን",
+    cancelBtn: "ተው",
     inventory: "የአሁን ማከማቻ",
     noProducts: "ምርቶች የሉም። አዲስ ምርት ይጨምሩ።",
+    edit: "አስተካክል",
     delete: "ሰርዝ",
     added: "ምርት በተሳካ ሁኔታ ታክሏል!",
+    updated: "ምርት ተሻሽሏል!",
     dragDrop: "ምስሎችን እዚህ ይጎትቱ",
     orClick: "ወይም ጠቅ ያድርጉ",
     uploading: "በማስቀመጥ...",
@@ -104,18 +119,15 @@ export default function AdminPage() {
   const [submitting, setSubmitting] = useState(false);
   const [uploadingCount, setUploadingCount] = useState(0);
   const [success, setSuccess] = useState(false);
+  const [successMsg, setSuccessMsg] = useState('');
   const [locale, setLocale] = useState('en');
   const [dragOver, setDragOver] = useState(false);
+  const [editingId, setEditingId] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const [formData, setFormData] = useState({
-    name: '',
-    price: '',
-    description: '',
-    image_urls: [] as string[],
-    category: '',
-    variants: [] as Variant[],
-  });
+  const emptyForm = { name: '', price: '', description: '', image_urls: [] as string[], category: '', variants: [] as Variant[] };
+
+  const [formData, setFormData] = useState({ ...emptyForm });
 
   const [currentVariant, setCurrentVariant] = useState<Variant>({
     color: '', price: '', image_urls: [],
@@ -208,6 +220,26 @@ export default function AdminPage() {
     }));
   };
 
+  const handleEdit = (product: Product) => {
+    setEditingId(product.id);
+    setFormData({
+      name: product.name,
+      price: product.price,
+      description: product.description,
+      image_urls: product.image_urls,
+      category: product.category,
+      variants: product.variants || [],
+    });
+    setCurrentVariant({ color: '', price: '', image_urls: [] });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleCancel = () => {
+    setEditingId(null);
+    setFormData({ ...emptyForm });
+    setCurrentVariant({ color: '', price: '', image_urls: [] });
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (formData.image_urls.length === 0) {
@@ -221,11 +253,15 @@ export default function AdminPage() {
       variants: formData.variants.length > 0 ? formData.variants : [],
     };
 
-    const { error } = await supabase.from('products').insert([payload]);
+    const { error } = editingId
+      ? await supabase.from('products').update(payload).eq('id', editingId)
+      : await supabase.from('products').insert([payload]);
 
     if (!error) {
       setSuccess(true);
-      setFormData({ name: '', price: '', description: '', image_urls: [], category: '', variants: [] });
+      setSuccessMsg(editingId ? content.updated : content.added);
+      setEditingId(null);
+      setFormData({ ...emptyForm });
       setCurrentVariant({ color: '', price: '', image_urls: [] });
       fetchProducts();
       setTimeout(() => setSuccess(false), 3000);
@@ -236,6 +272,7 @@ export default function AdminPage() {
   const handleDelete = async (id: string) => {
     if (confirm('Delete this product?')) {
       await supabase.from('products').delete().eq('id', id);
+      if (editingId === id) handleCancel();
       fetchProducts();
     }
   };
@@ -297,14 +334,25 @@ export default function AdminPage() {
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           <div className="bg-white rounded-xl shadow-lg p-8">
-            <h2 className="text-xl font-serif mb-6 flex items-center gap-2">
-              <Plus className="text-luxury-gold" size={20} />
-              {content.addProduct}
-            </h2>
+            <div className="flex items-center justify-between mb-6">
+              <h2 className="text-xl font-serif flex items-center gap-2">
+                <Plus className="text-luxury-gold" size={20} />
+                {editingId ? content.editProduct : content.addProduct}
+              </h2>
+              {editingId && (
+                <button
+                  type="button"
+                  onClick={handleCancel}
+                  className="text-sm text-gray-500 hover:text-black underline"
+                >
+                  {content.cancelBtn}
+                </button>
+              )}
+            </div>
 
             {success && (
               <div className="mb-6 p-4 bg-green-50 text-green-700 rounded-lg">
-                {content.added}
+                {successMsg}
               </div>
             )}
 
@@ -558,7 +606,7 @@ export default function AdminPage() {
                 disabled={submitting || uploadingCount > 0}
                 className="w-full bg-black text-white py-4 font-semibold rounded-lg hover:bg-luxury-gold transition-colors disabled:opacity-50"
               >
-                {submitting ? <Loader2 className="animate-spin mx-auto" size={20} /> : content.addBtn}
+                {submitting ? <Loader2 className="animate-spin mx-auto" size={20} /> : (editingId ? content.updateBtn : content.addBtn)}
               </button>
             </form>
           </div>
@@ -600,12 +648,22 @@ export default function AdminPage() {
                           <p className="text-xs text-luxury-gold">{product.variants.length} color(s)</p>
                         )}
                       </div>
-                      <button
-                        onClick={() => handleDelete(product.id)}
-                        className="p-2 text-gray-400 hover:text-red-500 transition-colors"
-                      >
-                        <Trash2 size={18} />
-                      </button>
+                      <div className="flex items-center gap-1">
+                        <button
+                          onClick={() => handleEdit(product)}
+                          className="p-2 text-gray-400 hover:text-luxury-gold transition-colors"
+                          title={content.edit}
+                        >
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M17 3a2.85 2.85 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></svg>
+                        </button>
+                        <button
+                          onClick={() => handleDelete(product.id)}
+                          className="p-2 text-gray-400 hover:text-red-500 transition-colors"
+                          title={content.delete}
+                        >
+                          <Trash2 size={16} />
+                        </button>
+                      </div>
                     </div>
                   ))}
                 </div>
