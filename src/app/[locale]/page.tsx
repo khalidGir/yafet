@@ -13,7 +13,6 @@ interface Product {
   price: string;
   description: string;
   image_urls: string[];
-  category: string;
 }
 
 interface PageContent {
@@ -21,17 +20,9 @@ interface PageContent {
   title: string;
   titleItalic: string;
   subtitle: string;
-  categories: {
-    all: string;
-    luxuryCollection: string;
-    egyptianCotton: string;
-    pureSilk: string;
-    velvet: string;
-  };
   showing: string;
   listings: string;
   loading: string;
-  viewAll: string;
   noProducts: string;
   quickView: string;
   tagline: string;
@@ -44,18 +35,10 @@ const translations: Record<string, PageContent> = {
     titleItalic: "Every Home",
     subtitle: "Durable, comfortable, and fairly priced bedding curated for Ethiopian families.",
     tagline: "Quality Verified • Locally Delivered",
-    categories: {
-      all: "Show All",
-      luxuryCollection: "Premium Silk",
-      egyptianCotton: "Daily Cotton",
-      pureSilk: "Mulberry Silk",
-      velvet: "Velvet Soft",
-    },
     showing: "Viewing",
     listings: "available sets",
     loading: "Loading collection...",
-    viewAll: "See all items",
-    noProducts: "We couldn't find any products in this category.",
+    noProducts: "No products available yet.",
     quickView: "Call to Order",
   },
   am: {
@@ -64,27 +47,17 @@ const translations: Record<string, PageContent> = {
     titleItalic: "ለማንኛውም ቤት",
     subtitle: "ለኢትዮጵያ ቤተሰቦች የተዘጋጁ ዘላቂ፣ ምቹ እና ተመጣጣኝ ዋጋ ያላቸው የአልጋ ልብሶች።",
     tagline: "ጥራት የተረጋገጠ • በአካባቢው የሚደርስ",
-    categories: {
-      all: "ሁሉንም አሳይ",
-      luxuryCollection: "ፕሪሚየም ሐር",
-      egyptianCotton: "የዕለት ተዕለት ጥጥ",
-      pureSilk: "የሾላ ሐር",
-      velvet: "ለስላሳ ቬልቬት",
-    },
     showing: "እያዩ ነው",
     listings: "የሚገኙ ስብስቦች",
     loading: "ስብስቡ በመጫን ላይ ነው...",
-    viewAll: "ሁሉንም እቃዎች ይመልከቱ",
-    noProducts: "በዚህ ምድብ ውስጥ ምንም ምርቶች ማግኘት አልቻልንም።",
+    noProducts: "ገና ምንም ምርቶች የሉም።",
     quickView: "ለመግዛት ይደውሉ",
   },
 };
 
 export default function SinglePageListing() {
   const [products, setProducts] = useState<Product[]>([]);
-  const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
-  const [activeCategory, setActiveCategory] = useState('All');
   const [locale, setLocale] = useState('am');
 
   useEffect(() => {
@@ -100,31 +73,13 @@ export default function SinglePageListing() {
 
       if (data) {
         setProducts(data);
-        setFilteredProducts(data);
       }
       setLoading(false);
     }
     fetchProducts();
   }, []);
 
-  useEffect(() => {
-    if (activeCategory === 'All') {
-      setFilteredProducts(products);
-    } else {
-      setFilteredProducts(products.filter(p => p.category === activeCategory));
-    }
-  }, [activeCategory, products]);
-
   const content = translations[locale] || translations.am;
-
-  const categoryKeys = ['all', 'luxuryCollection', 'egyptianCotton', 'pureSilk', 'velvet'];
-  const categories = categoryKeys.map((key) => ({
-    key,
-    label: content.categories[key as keyof typeof content.categories],
-    value: key === 'all' ? 'All' : key === 'luxuryCollection' ? 'Luxury Collection' : 
-           key === 'egyptianCotton' ? 'Egyptian Cotton' : 
-           key === 'pureSilk' ? 'Pure Silk' : 'Velvet',
-  }));
 
   const toggleLanguage = () => {
     const newLocale = locale === 'en' ? 'am' : 'en';
@@ -172,24 +127,6 @@ export default function SinglePageListing() {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-12 text-center">
-        <div className="flex flex-wrap justify-center gap-2 md:gap-4">
-          {categories.map((cat) => (
-            <button
-              key={cat.key}
-              onClick={() => setActiveCategory(cat.value)}
-              className={`px-5 py-2.5 text-sm font-bold rounded-full transition-all ${
-                activeCategory === cat.value
-                  ? 'bg-brand-blue text-white shadow-md'
-                  : 'bg-slate-100 text-slate-500 hover:bg-slate-200'
-              }`}
-            >
-              {cat.label}
-            </button>
-          ))}
-        </div>
-      </div>
-
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
         {loading ? (
           <div className="flex flex-col items-center justify-center py-40 gap-4">
@@ -200,12 +137,12 @@ export default function SinglePageListing() {
           <>
             <div className="flex justify-between items-center mb-8 pb-6 border-b border-slate-100">
               <span className="text-sm font-bold text-slate-400 uppercase tracking-tight">
-                {content.showing} {filteredProducts.length} {content.listings}
+                {content.showing} {products.length} {content.listings}
               </span>
             </div>
 
             <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8 lg:gap-12">
-              {filteredProducts.map((product) => (
+              {products.map((product) => (
                 <Link
                   key={product.id}
                   href={`/${locale}/catalog/${product.id}`}
@@ -246,15 +183,9 @@ export default function SinglePageListing() {
               ))}
             </div>
 
-            {filteredProducts.length === 0 && (
+            {products.length === 0 && (
               <div className="py-20 text-center">
                 <p className="font-bold text-2xl text-slate-400">{content.noProducts}</p>
-                <button
-                  onClick={() => setActiveCategory('All')}
-                  className="mt-6 text-sm font-bold border-b-2 border-brand-blue pb-1 text-brand-blue hover:text-brand-warm hover:border-brand-warm transition-all uppercase tracking-widest"
-                >
-                  {content.viewAll}
-                </button>
               </div>
             )}
           </>
