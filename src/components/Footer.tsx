@@ -27,7 +27,7 @@ const Footer = ({ locale }: FooterProps) => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col md:flex-row justify-between items-center gap-12">
           <div className="text-center md:text-left space-y-4">
-            <h2 className="font-bold text-3xl tracking-tight text-white uppercase">ETHIOCONFURT</h2>
+            <h2 className="font-bold text-3xl tracking-tight text-white uppercase">ETHIO COMFORT</h2>
             <p className="text-slate-400 text-sm leading-relaxed max-w-xs mx-auto md:mx-0">
               Quality bedding for every Ethiopian home. Durable, comfortable, and locally delivered.
             </p>
@@ -48,7 +48,7 @@ const Footer = ({ locale }: FooterProps) => {
 
         <div className="mt-20 pt-8 border-t border-slate-800 text-center">
           <p className="text-[10px] font-bold text-slate-500 uppercase tracking-[0.2em]">
-            © {currentYear} ETHIOCONFURT BEDDING. QUALITY YOU CAN TRUST.
+            © {currentYear} ETHIO COMFORT BEDDING. QUALITY YOU CAN TRUST.
           </p>
         </div>
       </div>

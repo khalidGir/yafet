@@ -133,7 +133,7 @@ export default function CatalogPage() {
       <header className="sticky top-0 bg-white/95 backdrop-blur-sm z-40 border-b border-gray-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
           <Link href={`/${locale}`} className="font-serif text-xl tracking-wider text-black hover:text-luxury-gold">
-            ETHIOCONFURT
+            ETHIO COMFORT
           </Link>
           <button
             onClick={toggleLanguage}
@@ -240,7 +240,7 @@ export default function CatalogPage() {
 
       <footer className="py-16 text-center border-t border-slate-100 bg-slate-50">
         <Link href={`/${locale}`} className="font-bold text-3xl tracking-tight text-brand-blue mb-4 block">
-          ETHIOCONFURT
+          ETHIO COMFORT
         </Link>
         <span className="text-sm font-bold tracking-widest uppercase text-slate-400">
           Quality Bedding for Every Ethiopian Home

@@ -34,7 +34,7 @@ const Nav = ({ locale }: NavProps) => {
             href={`/${locale}`} 
             className="font-serif text-xl md:text-2xl tracking-wider text-black hover:text-luxury-gold transition-colors"
           >
-            ETHIOCONFURT
+            ETHIO COMFORT
           </Link>
 
           <div className="hidden md:flex items-center gap-8">

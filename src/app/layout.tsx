@@ -18,7 +18,7 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  title: "Ethioconfurt | Premium Bedding & Home Essentials",
+  title: "Ethio Comfort | Premium Bedding & Home Essentials",
   description: "Luxury bedding catalog for the Ethiopian home. Silk, Egyptian Cotton, and more.",
 };
 

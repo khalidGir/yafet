@@ -36,7 +36,7 @@ const translations: Record<string, ContactContent> = {
     whatsapp: "WhatsApp",
     whatsappDesc: "Send a message",
     emailContact: "Email",
-    emailDesc: "hello@ethioconfurt.com",
+    emailDesc: "hello@ethiocomfort.com",
     showroom: "Showroom",
     showroomAddress: "Bole Road, Addis Ababa",
     formTitle: "Send an Inquiry",
@@ -56,7 +56,7 @@ const translations: Record<string, ContactContent> = {
     whatsapp: "ዋትሳፕ",
     whatsappDesc: "መልእክት ይላኩ",
     emailContact: "ኢሜይል",
-    emailDesc: "hello@ethioconfurt.com",
+    emailDesc: "hello@ethiocomfort.com",
     showroom: "ሱቅ",
     showroomAddress: "ቦሌ ማለት፣ አዲስ አበባ",
     formTitle: "ጥያቄ ላኩ",
@@ -98,7 +98,7 @@ export default function ContactPage() {
   const contactInfo = [
     { icon: <Phone size={24} />, label: content.phone, value: "+251 950 29 44 22", href: "tel:+251950294422" },
     { icon: <MessageCircle size={24} />, label: content.whatsapp, value: content.whatsappDesc, href: "https://wa.me/251950294422" },
-    { icon: <Mail size={24} />, label: content.emailContact, value: content.emailDesc, href: "mailto:hello@ethioconfurt.com" },
+    { icon: <Mail size={24} />, label: content.emailContact, value: content.emailDesc, href: "mailto:hello@ethiocomfort.com" },
     { icon: <MapPin size={24} />, label: content.showroom, value: content.showroomAddress, href: "#" },
   ];
 
@@ -107,7 +107,7 @@ export default function ContactPage() {
       <header className="sticky top-0 bg-white/95 backdrop-blur-sm z-40 border-b border-gray-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
           <Link href={`/${locale}`} className="font-serif text-xl tracking-wider text-black hover:text-luxury-gold">
-            ETHIOCONFURT
+            ETHIO COMFORT
           </Link>
           <button
             onClick={toggleLanguage}
@@ -210,7 +210,7 @@ export default function ContactPage() {
 
       <footer className="py-12 text-center border-t border-gray-100">
         <span className="text-sm tracking-widest uppercase text-gray-300">
-          © 2026 Ethioconfurt Premium • Addis Ababa
+          © 2026 Ethio Comfort Premium • Addis Ababa
         </span>
       </footer>
     </div>

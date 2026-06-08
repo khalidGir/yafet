@@ -137,7 +137,7 @@ export default function SinglePageListing() {
       <header className="sticky top-0 bg-white/95 backdrop-blur-sm z-40 border-b border-slate-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
           <Link href={`/${locale}`} className="font-bold text-xl tracking-tight text-brand-blue hover:text-brand-warm transition-colors uppercase">
-            ETHIOCONFURT
+            ETHIO COMFORT
           </Link>
           <button
             onClick={toggleLanguage}
@@ -265,7 +265,7 @@ export default function SinglePageListing() {
 
       <footer className="py-16 text-center border-t border-slate-100 bg-slate-900 text-white">
         <Link href={`/${locale}`} className="font-bold text-3xl tracking-tight text-white mb-4 block uppercase">
-          ETHIOCONFURT
+          ETHIO COMFORT
         </Link>
         <span className="text-xs font-bold tracking-widest uppercase text-slate-500">
           Quality Bedding for Every Ethiopian Home • Call 0950 29 44 22

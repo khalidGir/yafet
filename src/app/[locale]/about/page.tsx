@@ -25,7 +25,7 @@ const translations: Record<string, AboutContent> = {
     heroLabel: "Our Heritage",
     heroTitle: "Crafting the Perfect Rest",
     storyTitle: "A Legacy of Luxury",
-    storyText: "Ethioconfurt was born from a simple belief: that every Ethiopian home deserves access to world-class bedding. Founded in Addis Ababa, we've spent years sourcing the finest materials from across the globe—Mulberry silk from China, Egyptian cotton from the Nile Valley, and velvet weaves from Italian artisans.",
+    storyText: "Ethio Comfort was born from a simple belief: that every Ethiopian home deserves access to world-class bedding. Founded in Addis Ababa, we've spent years sourcing the finest materials from across the globe—Mulberry silk from China, Egyptian cotton from the Nile Valley, and velvet weaves from Italian artisans.",
     philosophyTitle: "Our Philosophy",
     integrity: "Integrity",
     integrityDesc: "Every thread tells a story of honest craftsmanship",
@@ -39,7 +39,7 @@ const translations: Record<string, AboutContent> = {
     heroLabel: "ቅርሳችን",
     heroTitle: "ፍፁም እንቅልፍን ማዘጋጀት",
     storyTitle: "የሽልማት ታሪክ",
-    storyText: "Ethioconfurt ከቀላል እምነት የተወለደ፡ እያንዳንዱ የኢትዮጵያ ቤት የዓለምን ደረጃ ያለው አልጋ ልብስ ሊያገኝ ይገባል። በአዲስ አበባ የተመሰረተ፣ ከዓለም ዙሪያ ምርጥ ቁሶችን ለማግኘት ዓመታትን አሳለፍን—ከቻይና ሙለሪ ሱሪ፣ ከዓብይ ሸለቆ የግብፅ አበባ፣ እና ከጣሊያን አርበኞች ቨልቬት ፈርባይ።",
+    storyText: "Ethio Comfort ከቀላል እምነት የተወለደ፡ እያንዳንዱ የኢትዮጵያ ቤት የዓለምን ደረጃ ያለው አልጋ ልብስ ሊያገኝ ይገባል። በአዲስ አበባ የተመሰረተ፣ ከዓለም ዙሪያ ምርጥ ቁሶችን ለማግኘት ዓመታትን አሳለፍን—ከቻይና ሙለሪ ሱሪ፣ ከዓብይ ሸለቆ የግብፅ አበባ፣ እና ከጣሊያን አርበኞች ቨልቬት ፈርባይ።",
     philosophyTitle: "ፍልስፍናችን",
     integrity: "ታማኝነት",
     integrityDesc: "እያንዳንዱ ጥቅል የወንድማማችነት ታሪክ ይናገራል",
@@ -72,7 +72,7 @@ export default function AboutPage() {
       <header className="sticky top-0 bg-white/95 backdrop-blur-sm z-40 border-b border-gray-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
           <Link href={`/${locale}`} className="font-serif text-xl tracking-wider text-black hover:text-luxury-gold">
-            ETHIOCONFURT
+            ETHIO COMFORT
           </Link>
           <button
             onClick={toggleLanguage}
@@ -150,7 +150,7 @@ export default function AboutPage() {
           {content.exploreCollection} <ArrowRight size={16} />
         </Link>
         <div className="mt-16 text-xs tracking-widest uppercase text-gray-300">
-          © 2026 Ethioconfurt Premium
+          © 2026 Ethio Comfort Premium
         </div>
       </footer>
     </div>
