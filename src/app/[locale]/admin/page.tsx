@@ -15,12 +15,6 @@ interface AdminContent {
   price: string;
   description: string;
   imageUpload: string;
-  category: string;
-  selectCategory: string;
-  luxuryCollection: string;
-  egyptianCotton: string;
-  pureSilk: string;
-  velvet: string;
   addBtn: string;
   updateBtn: string;
   cancelBtn: string;
@@ -51,12 +45,6 @@ const translations: Record<string, AdminContent> = {
     price: "Base Price (ETB)",
     description: "Description",
     imageUpload: "Product Images",
-    category: "Category",
-    selectCategory: "Select a category",
-    luxuryCollection: "Luxury Collection",
-    egyptianCotton: "Egyptian Cotton",
-    pureSilk: "Pure Silk",
-    velvet: "Velvet",
     addBtn: "Add Product",
     updateBtn: "Update Product",
     cancelBtn: "Cancel",
@@ -85,12 +73,6 @@ const translations: Record<string, AdminContent> = {
     price: "መሰረታዊ ዋጋ (ETB)",
     description: "መግለጫ",
     imageUpload: "ምርት ምስሎች",
-    category: "ምድብ",
-    selectCategory: "ምድብ ይምረጡ",
-    luxuryCollection: "ርዕሰ ጉዳይ ስብስብ",
-    egyptianCotton: "የግብፅ አበባ",
-    pureSilk: "ንፁህ ሱሪ",
-    velvet: "ቨልቬት",
     addBtn: "ምርት ጨምሩ",
     updateBtn: "ምርት አዘምን",
     cancelBtn: "ተው",
@@ -125,7 +107,7 @@ export default function AdminPage() {
   const [editingId, setEditingId] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const emptyForm = { name: '', price: '', description: '', image_urls: [] as string[], category: '', variants: [] as Variant[] };
+  const emptyForm = { name: '', price: '', description: '', image_urls: [] as string[], variants: [] as Variant[] };
 
   const [formData, setFormData] = useState({ ...emptyForm });
 
@@ -227,7 +209,6 @@ export default function AdminPage() {
       price: product.price,
       description: product.description,
       image_urls: product.image_urls,
-      category: product.category,
       variants: product.variants || [],
     });
     setCurrentVariant({ color: '', price: '', image_urls: [] });
@@ -301,13 +282,6 @@ export default function AdminPage() {
     setLocale(newLocale);
     localStorage.setItem('locale', newLocale);
   };
-
-  const categories = [
-    { value: 'Luxury Collection', label: content.luxuryCollection },
-    { value: 'Egyptian Cotton', label: content.egyptianCotton },
-    { value: 'Pure Silk', label: content.pureSilk },
-    { value: 'Velvet', label: content.velvet },
-  ];
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -515,25 +489,6 @@ export default function AdminPage() {
                 </div>
               </div>
 
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  {content.category}
-                </label>
-                <select
-                  required
-                  value={formData.category}
-                  onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-                  className="w-full border border-gray-200 rounded-lg px-4 py-3 outline-none focus:border-luxury-gold"
-                >
-                  <option value="">{content.selectCategory}</option>
-                  {categories.map((cat) => (
-                    <option key={cat.value} value={cat.value}>
-                      {cat.label}
-                    </option>
-                  ))}
-                </select>
-              </div>
-
               <div className="border-t border-gray-100 pt-6">
                 <h3 className="text-lg font-medium mb-4 flex items-center gap-2">
                   <Palette className="text-luxury-gold" size={20} />
@@ -643,7 +598,6 @@ export default function AdminPage() {
                       <div className="flex-1 min-w-0">
                         <h3 className="font-medium text-gray-900 truncate">{product.name}</h3>
                         <p className="text-sm text-gray-500">{product.price}</p>
-                        <p className="text-xs text-gray-400 uppercase">{product.category}</p>
                         {product.variants?.length > 0 && (
                           <p className="text-xs text-luxury-gold">{product.variants.length} color(s)</p>
                         )}
